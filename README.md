@@ -4,7 +4,7 @@
 Authentication with the BitPesa API relies on correctly setting the headers on each request with the following data:
 
 * **Accept** and **Content-Type** should be 'application/json'
-* **Authorization-Key** is your application's API key, which can be received from the developer portal once your application has been approved
+* **Authorization-Key** is your application's API key, which can be received from the [BitPesa developer portal](https://developers.bitpesa.co) once your application has been approved
 * **Authorization-Nonce** is a string, which must be unique per request - a GUID is best
 * **Authorization-Signature** is a HMAC-SHA512 digest of the nonce, request method, URL, and a SHA512 hash of the request body - you will need your API Secret, also available on the developer portal, to sign
 
@@ -95,4 +95,4 @@ Full examples of this process are available for the following languages:
 * For testing, use https://api-sandbox.bitpesa.co
 * For production, use https://api.bitpesa.co
 
-You will need a valid API Key and API Secret for each environment, obtainable in the Developer Portal once your application has been approved.
+You will need a valid API Key and API Secret for each environment, obtainable in the [BitPesa developer portal](https://developers.bitpesa.co) once your application has been approved.
