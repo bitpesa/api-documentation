@@ -46,7 +46,7 @@ Unfortunately not all transactions are successful. The main causes of issues are
 
 * Transactions are cancelled automatically if they are not funded within the first hour of creation.
 * The recipient details might be wrong (for example the desitnation bank account number is invalid), or there are other issues blocking the successful payout. In these cases the transaction has to be cancelled.
-* Once the transaction is cancelled, we will refund the money to the sender. Dependent on how the transaction was funded this might be a manual process.
+* Once the transaction is cancelled, we will refund the money to the sender. Dependent on how the transaction was funded this might be a manual process. Funds from account balances are always refunded automatically.
 
 ## Creating transactions
 
