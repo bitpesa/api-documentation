@@ -193,6 +193,7 @@ Commonly used payout types are:
 * `NGN::Bank`: for Nigerian bank account payments
 * `NGN::Mobile`: for Nigerian mobile money payments
 * `GHS::Mobile`: for Ghanaian mobile money payments
+* `UGX::Mobile`: for Ugandan mobile money payments
 
 Unless you hold an internal balance with us the input currency and payout currency cannot be the same. If you wish to do same-currency transactions please contact our team for further details.
 
@@ -250,7 +251,7 @@ Examples for the most commonly used payout providers:
 "details": {
   "first_name": "First",
   "last_name": "Last",
-  "phone_number": "752403639"
+  "phone_number": "7087661234"
     // local Nigerian format
 }
 ```
@@ -261,8 +262,19 @@ Examples for the most commonly used payout providers:
 "details": {
   "first_name": "First",
   "last_name": "Last",
-  "phone_number": "752403639"
+  "phone_number": "302123456"
     // local Ghanaian format
+}
+```
+
+##### UGX:Mobile
+
+```javascript
+"details": {
+  "first_name": "First",
+  "last_name": "Last",
+  "phone_number": "414123456"
+    // local Ugandan format
 }
 ```
 
