@@ -1,5 +1,36 @@
 # The transaction flow
 
+- [Introduction](#introduction)
+- [Creating transactions](#creating-transactions)
+  - [Input currency](#input-currency)
+  - [Sender](#sender)
+  - [Recipient](#recipient)
+    - [Payout type](#payout-type)
+    - [Requested amount and currency](#requested-amount-and-currency)
+    - [Payout details](#payout-details)
+      - [NGN::Bank](#ngn--bank)
+      - [NGN::Mobile](#ngn--mobile)
+      - [GHS:Mobile](#ghs-mobile)
+  - [Metadata](#metadata)
+- [Transaction object](#transaction-object)
+  - [object.id](#objectid)
+  - [object.state](#objectstate)
+  - [state_reason](#state-reason)
+  - [input_amount and input_currency](#input-amount-and-input-currency)
+  - [sender](#sender)
+  - [recipients](#recipients)
+    - [id](#id)
+    - [output_amount and output_currency](#output-amount-and-output-currency)
+    - [state](#state)
+    - [state_reason](#state-reason)
+    - [editable](#editable)
+    - [may_cancel](#may-cancel)
+    - [payout_method.fields](#payout-methodfields)
+- [Funding transactions](#funding-transactions)
+- [Checking the state of the transaction](#checking-the-state-of-the-transaction)
+- [Receiving error messages](#receiving-error-messages)
+- [Cancelling recipients and transactions](#cancelling-recipients-and-transactions)
+
 ## Introduction
 
 Transactions are the main objects in the BitPesa API, so it's important to understand how to create and manage them. Transactions facilitate money movement from one Sender in a specific currency to one or multiple Recipients in another currency.

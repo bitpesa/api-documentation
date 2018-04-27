@@ -1,5 +1,17 @@
 # Bitpesa API Documentation
 
+- [Introduction](#introduction)
+- [API onboarding process](#api-onboarding-process)
+- [BitPesa API architecture](#bitpesa-api-architecture)
+  - [Authentication](#authentication)
+  - [Status codes](#status-codes)
+  - [Webhooks](#webhooks)
+  - [Metadata](#metadata)
+  - [Senders](#senders)
+  - [Recipients](#recipients)
+  - [Transactions](#transactions)
+  - [Balances](#balances)
+
 ## Introduction
 
 The BitPesa API allows users to create transactions programmatically to send and receive money from various African countries. This documentation provides a tutorial for the most common flows of using the API.
