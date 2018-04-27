@@ -8,24 +8,14 @@
     - [Payout type](#payout-type)
     - [Requested amount and currency](#requested-amount-and-currency)
     - [Payout details](#payout-details)
-      - [NGN::Bank](#ngn--bank)
-      - [NGN::Mobile](#ngn--mobile)
-      - [GHS:Mobile](#ghs-mobile)
   - [Metadata](#metadata)
 - [Transaction object](#transaction-object)
-  - [object.id](#objectid)
-  - [object.state](#objectstate)
+  - [id](#id)
+  - [state](#state)
   - [state_reason](#state-reason)
   - [input_amount and input_currency](#input-amount-and-input-currency)
   - [sender](#sender)
   - [recipients](#recipients)
-    - [id](#id)
-    - [output_amount and output_currency](#output-amount-and-output-currency)
-    - [state](#state)
-    - [state_reason](#state-reason)
-    - [editable](#editable)
-    - [may_cancel](#may-cancel)
-    - [payout_method.fields](#payout-methodfields)
 - [Funding transactions](#funding-transactions)
 - [Checking the state of the transaction](#checking-the-state-of-the-transaction)
 - [Receiving error messages](#receiving-error-messages)
@@ -456,11 +446,11 @@ A transaction object looks like the following:
 
 As shown the response contains a lot of information, the most importants are the following:
 
-### object.id
+### id
 
 The ID if the transaction
 
-### object.state
+### state
 
 The state of the transaction, which can be one of the following:
 
