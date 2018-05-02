@@ -1,98 +1,105 @@
 # Bitpesa API Documentation
 
-## Authentication
-Authentication with the BitPesa API relies on correctly setting the headers on each request with the following data:
+- [Introduction](#introduction)
+- [API onboarding process](#api-onboarding-process)
+- [BitPesa API architecture](#bitpesa-api-architecture)
+  - [Authentication](#authentication)
+  - [Status codes](#status-codes)
+  - [Webhooks](#webhooks)
+  - [Metadata](#metadata)
+  - [Senders](#senders)
+  - [Recipients](#recipients)
+  - [Transactions](#transactions)
+  - [Balances](#balances)
 
-* **Accept** and **Content-Type** should be 'application/json'
-* **Authorization-Key** is your application's API key, which can be received from the [BitPesa developer portal](https://developers.bitpesa.co) once your application has been approved
-* **Authorization-Nonce** is a string, which must be unique per request - a GUID is best
-* **Authorization-Signature** is a HMAC-SHA512 digest of the nonce, request method, URL, and a SHA512 hash of the request body - you will need your API Secret, also available on the developer portal, to sign
+## Introduction
 
-You will also need
+The BitPesa API allows users to create transactions programmatically to send and receive money from various African countries. This documentation provides a tutorial for the most common flows of using the API.
 
-* your API Secret, obtainable from the developer portal
-* the request body - this should be a JSON string
-* the full request URL, including protocol, host, port and query parameters
+There is also a more complete reference of the available API calls available at https://api.bitpesa.co/documentation
 
-### Example data
-For the following example, we will assume you are using the following details to create a Personal Sender:
+## API onboarding process
 
-* API Key: `YOUR_API_KEY`
-* API Secret: `YOUR_API_SECRET`
-* Nonce: `00c6a48a-ccb8-4653-a0c8-de7c1ab67529`
-* Response Body:
-```
+To use our API please register and obtain valid API keys on the [BitPesa developer portal](https://developers.bitpesa.co).
+
+Initially the keys will only be valid to be used on our sandbox environment at https://api-sandbox.bitpesa.co
+
+Once development is finished against our API, please contact BitPesa where our representatives will validate your implementation and if successful allow access to the live environment.
+
+> **WARNING**
+>
+> During this verification we will check that your implementation works as expected, and as a minimum supports the following functionalities:
+>
+> * Authenticate to our site
+> * Create and re-use senders
+> * Create and fund transactions
+> * Check the status of transactions both via webhooks and manually
+> * Handling and cancelling failed transactions
+
+## BitPesa API architecture
+
+### Authentication
+
+Every API call needs to be authenticated. See the [authentication documentation](authentication.md) for more details on the authentication process.
+
+### Status codes
+
+Generally in our API there are two types of status codes used:
+
+* A `200` or `201` status code means that the request was accepted, and there were no issues with it.
+* A `422` status code is used whenever there was a validation error with the request. In case of validation errors, they are returned in the `errors` field, other errors are usually present in the `meta` field in the response.
+
+### Webhooks
+
+Whenever objects in the BitPesa API change state, we can optionally send the changed details to a pre-registered webhook address. Webhooks can be created either using the [developer portal](https://developers.bitpesa.co), or using the [BitPesa API](https://api.bitpesa.co/documentation#webhooks).
+
+Whenever possible we prefer using webhooks to listen on events (for example when a transaction has been paid out) instead of polling the status, and we expect implementations fully utilising webhooks.
+
+Webhooks will always generate a `POST` request to the specified endpoint, and will also include the same authentication headers as described in the [authentication documentation](authentication.md), so their validity can be verified on the receiver end.
+
+The structure of the body we send will always follow the following template:
+
+```javascript
 {
-  sender: {
-    country: 'UG',
-    phone_country: 'UG',
-    phone_number: '752403639',
-    email: 'email@domain.com',
-    first_name: 'Example',
-    last_name: 'User',
-    city: 'Kampala',
-    street: 'Somewhere 17-3',
-    postal_code: '798983',
-    birth_date: '1970-01-01',
-    documents: [
-      {
-        upload: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAACXBIWXMAAAsT\nAAALEwEAmpwYAAAAB3RJTUUH4gEeCTEzbKJEHgAAAB1pVFh0Q29tbWVudAAA\nAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAADElEQVQI12P4z8AAAAMBAQAY\n3Y2wAAAAAElFTkSuQmCC",
-        upload_file_name: 'passport.png',
-        metadata: { meta: 'data' }
-      }
-    ],
-    ip: '127.0.0.1',
-    metadata: { meta: 'data' }
+  "webhook": // the ID of the webhook
+  "event": // the specific event
+           // that was triggered
+  "object": {
+    // the full details of
+    // the object on which
+    // the event happened
   }
 }
 ```
-* A `POST` request to https://api-sandbox.bitpesa.co/v1/senders
 
-### Building the signature
-The string to sign is generated by concatenating request-specific strings together, joined with an ampersand (&):
+If the endpoint we have to call is behind a firewall please let us know so we can tell you the exact IP addresses that you need to whitelist. In case of a transmission error we will also try to send the webhook again five times before dropping the request.
 
-* the Authorization-Nonce value
-* the HTTP verb, in uppercase
-* `GET`
-* `POST`
-* `PUT`
-* `PATCH`
-* `DELETE`
-* the full request URL, including protocol, host, port, query parameters and anchors
-* a SHA512 hex digest of the request body JSON
-* For the example data above, this will be `947148915d2982f7897ab187fd851e854265883109935e5e8c7ba662232b2de15e92a298067687b5402319f0efebf0561d37fc4e73460c408f91c7e25bb66ae0`
-* Please note that, depending on the language, characters in the JSON may be escaped differently and your result might be different from this - see the [code example for your specific language](#complete-code-examples) for individual implementations.
+### Metadata
 
-For the [example values](#example-data) above, this results in the following string to sign:
+Most models in the BitPesa API allow storing any metadata, which will be returned when querying the object, including callouts from webhooks. This facility can be used to store any data on the models, including for example local IDs to help link them to the models inside the API user's system.
 
-* `00c6a48a-ccb8-4653-a0c8-de7c1ab67529&POST&https://api-sandbox.bitpesa.co/v1/senders&947148915d2982f7897ab187fd851e854265883109935e5e8c7ba662232b2de15e92a298067687b5402319f0efebf0561d37fc4e73460c408f91c7e25bb66ae0`
+### Senders
 
-This string to sign is encrypted with the SHA512 algorithm and your API Secret, with the resulting value:
+The senders model stores information about who sends the money for the transaction. Only senders that are KYC'd are allowed to pay in money.
 
-* `fc44e638c823b660e41f30ba78abe0e04f0dfc6b365e4a7129e44a181530146e4b777940fe8948af6fee5133b7f85d46a3cdcab449b9559617e60e593b73853c`
+If your site already does KYC on the senders, then  let us know as we might waive the requirement to send us sender documents to ease the usage of our API. Otherwise you will have to send us documents for each sender which we will validate.
 
-This is passed as the `Authorization-Signature` header for sending the request.
+You can read more on creating senders in the [Transaction flow documentation](transaction-flow.md).
 
-### Full sample header
-```
-Accept: application/json
-Content-Type: application/json
-Authorization-Key: YOUR_API_KEY
-Authorization-Nonce: 00c6a48a-ccb8-4653-a0c8-de7c1ab67529
-Authorization-Signature: eb36a61a75a7d78d16a774811122b3bbefd9fd3dfba28ffcb94b39e2c2d857cb6b22d77bb520762c813fe1a991e24862c42027c8b15b11553c03d662ed7d11f1
-```
+### Recipients
 
-### Complete code examples
-Full examples of this process are available for the following languages:
+The recipient model stores information about who receives money from a transaction, and whether the money has already been paid out or not. Any issues during the payout process are also stored against the recipient, therefore when checking for transaction issues one has to also subscribe for events on the recipients.
 
-* [Ruby](https://github.com/bitpesa/api-documentation/blob/master/authentication/auth_example.rb)
-* [PHP](https://github.com/bitpesa/api-documentation/blob/master/authentication/auth_example.php)
-* [C#](https://github.com/bitpesa/api-documentation/blob/master/authentication/auth_example.cs)
-* [Java](https://github.com/bitpesa/api-documentation/blob/master/authentication/auth_example.java)
-* [JavaScript/NodeJS](https://github.com/bitpesa/api-documentation/blob/master/authentication/auth_example.js)
+You can read more on recipients and how they work during transactions in the [Transaction flow documentation](transaction-flow.md).
 
-## API Environments
-* For testing, use https://api-sandbox.bitpesa.co
-* For production, use https://api.bitpesa.co
+### Transactions
 
-You will need a valid API Key and API Secret for each environment, obtainable in the [BitPesa developer portal](https://developers.bitpesa.co) once your application has been approved.
+The main model of the BitPesa API is the Transaction, which store the flow for sending money from one Sender in a specific currency, to one or multiple Recipients in another currency. You can read more on transactions in the [Transaction flow documentation](transaction-flow.md).
+
+### Balances
+
+By default when creating a transaction we will do both the collection of the money from the senders, and the payout to the recipients. If your site already does collection on the sender's behalf then please contact us, and we can set up an internal account with us.
+
+Once we approve your request and set up your balance, you can use that balance to fund the payin part of the transaction. You can read more on funding transactions from your internal balance in the [Transaction flow documentation](transaction-flow.md).
+
+If you have a balance with us you can use the `GET /v1/accounts` to get all or `GET /v1/accounts/XXX` endpoint to obtain a specific currency's balance with us (`XXX` is the currency you are interested in).
