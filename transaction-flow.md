@@ -35,8 +35,8 @@ The main flow of a successful transaction flow is the following:
 Unfortunately not all transactions are successful. The main causes of issues are the following:
 
 * Transactions are cancelled automatically if they are not funded within the first hour of creation.
-* The recipient details might be wrong (for example the desitnation bank account number is invalid), or there are other issues blocking the successful payout. In these cases the transaction has to be cancelled.
-* Once the transaction is cancelled, we will refund the money to the sender. Dependent on how the transaction was funded this might be a manual process. Funds from account balances are always refunded automatically.
+* The recipient details might be wrong (for example the destination bank account number is invalid), or there are other issues blocking the successful payout. In these cases the transaction has to be cancelled.
+* Once the transaction is cancelled, we will refund the money to the sender. Funds from account balances are always refunded automatically to the account balance. Funds from other types of payins might require manual processing however.
 
 ## Creating transactions
 
@@ -167,7 +167,7 @@ Once a sender is created and is used, the next time you should only send the ID 
 
 ### Recipient
 
-The recipient describes the amount, the curreny and the destination where the money should be sent. Although transactions can support paying out multiple recipients, usually one is provided.
+The recipient describes the amount, the currency and the destination where the money should be sent. Although transactions can support paying out multiple recipients, usually one is provided.
 
 The template for the recipient is the following:
 
@@ -469,7 +469,7 @@ The state of the transaction, which can be one of the following:
 * `initial`: Transaction is created, but not yet ready to receive payments (waiting for Sender to be KYC'd and approved).
 * `approved`: Transaction is created and the sender is approved. Payment can be received
 * `pending`: Transaction has received a payin, and it's waiting for the funds to clear.
-* `received`: Tranasction has received the correct payin amount and will start processing the payouts.
+* `received`: Transaction has received the correct payin amount and will start processing the payouts.
 * `mispaid`: Transaction received funds, but not the requested amount. The transaction will be resized, and will start payout based on the received funds.
 * `manual`: Some of the payments to the recipients have run into issues. Please check the recipient statuses for more information.
 * `paid`: Transaction has received correct payins and has performed payouts to all recipients. No further steps required
