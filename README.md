@@ -36,6 +36,8 @@ Once development is finished against our API, please contact BitPesa where our r
 > * Check the status of transactions both via webhooks and manually
 > * Handling and cancelling failed transactions
 
+You can also check our [quick integration guide](quick-integration.md) that contains the major points in making sure your implementation will be approved.
+
 ## BitPesa API architecture
 
 ### Authentication
@@ -103,3 +105,5 @@ By default when creating a transaction we will do both the collection of the mon
 Once we approve your request and set up your balance, you can use that balance to fund the payin part of the transaction. You can read more on funding transactions from your internal balance in the [Transaction flow documentation](transaction-flow.md).
 
 If you have a balance with us you can use the `GET /v1/accounts` to get all or `GET /v1/accounts/XXX` endpoint to obtain a specific currency's balance with us (`XXX` is the currency you are interested in).
+
+Please contact us to obtain our list of supported currency pairs for transactions.
