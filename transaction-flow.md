@@ -159,7 +159,7 @@ Once a sender is created and is used, the next time you should only send the ID 
 
 > **WARNING**
 >
-> For your application to get approved you MUST support reusing the sender ID for the same sender across transactions.
+> For your application to get approved you MUST support reusing the sender ID for the same sender across transactions. If the sender's details change in your system then you can use the `PATCH /v1/senders/<sender_id>` endpoint to update the sender details you store in our system to keep them up-to-date.
 
 > **NOTE**
 >
