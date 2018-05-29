@@ -579,6 +579,48 @@ Because payouts happen on the recipient level inside our system, any kind of iss
 
 The error message can be found inside the `state_reason` field on the recipient.
 
+Note that as the errors are sent on the recipient you will receive a recipient object in the webhook and not a full transaction. You can find the transaction id inside the `transaction_id` property of the recipient.
+
+For example on an error you will receive a webhook like this:
+
+```
+{
+  "webhook": "fd599451-4f3c-4045-91e1-d68ed12ffb75",
+  "event": "recipient.error",
+  "object": {
+    "created_at": "2018-05-28 08:06:13 UTC",
+    "editable": true,
+    "id": "f0c2f4ea-96cd-4270-b688-48af937fc53e",
+    "input_usd_amount": 30.98,
+    "may_cancel": true,
+    "metadata": {},
+    "state": "error",
+    "state_reason": "Stolen card. Please contact account holder. This transaction is not possible. Please cancel.",
+    "transaction_id": "94581e7a-a35a-430f-be0b-c8269a8acf4c",
+    "transaction_state": "received",
+    "payout_method": {
+      "id": "f2cce765-abb0-4b56-96bb-623cd0f78f9c",
+      "type": "NGN::Bank",
+      "details": {
+        "bank_code": "060",
+        "last_name": "Test",
+        "first_name": "Bank",
+        "bank_account": "123345678",
+        "bank_account_type": "20"
+      },
+      "metadata": {},
+      "provider": "interswitch",
+    },
+    "requested_amount": 10874.0,
+    "requested_currency": "NGN",
+    "input_amount": 10874.0,
+    "input_currency": "NGN",
+    "output_amount": 10874.0,
+    "output_currency": "NGN"
+  }
+}
+```
+
 > **WARNING**
 >
 > For your application to get approved it MUST support obtaining the error message from the recipient. It also MUST use primarily the webhook functionality to obtain whenever there's an issue, and only fall-back to using `GET` calls against the transaction occasionally.
