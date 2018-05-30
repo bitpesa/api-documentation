@@ -192,6 +192,7 @@ Commonly used payout types are:
 
 * `NGN::Bank`: for Nigerian bank account payments
 * `NGN::Mobile`: for Nigerian mobile money payments
+* `GHS::Bank`: for Ghanaian bank account payments
 * `GHS::Mobile`: for Ghanaian mobile money payments
 * `UGX::Mobile`: for Ugandan mobile money payments
 
@@ -234,15 +235,34 @@ Examples for the most commonly used payout providers:
   "first_name": "First",
   "last_name": "Last",
   "bank_code": "058",
-    // Note: to get the full list enter invalid
-    // details, and the validation error in the
-    // response will contain the full available
-    // options
   "bank_account": "123456789",
   "bank_account_type": "10"
     // 10 for saving
     // 20 for current accounts
 }
+```
+
+The valid `bank_code` values are:
+
+```
+Diamond Bank: 063
+EcoBank: 050
+FCMB Bank: 214
+Fidelity Bank: 070
+First Bank of Nigeria: 011
+Guaranty Trust Bank : 058
+Heritage Bank: 030
+Jaiz Bank: 301
+Keystone: 082
+Mainstreet: 014
+Skye Bank: 076
+Stanbic IBTC Bank: 039
+Sterling bank: 232
+Union Bank: 032
+United Bank for Africa: 033
+Unity Bank: 215
+Wema Bank: 035
+Zenith International: 057
 ```
 
 ##### NGN::Mobile
@@ -254,6 +274,54 @@ Examples for the most commonly used payout providers:
   "phone_number": "7087661234"
     // local Nigerian format
 }
+```
+
+##### GHS::Bank
+
+```javascript
+"details": {
+  "first_name": "First",
+  "last_name": "Last",
+  "bank_code": "012"
+  "bank_account": "123456789",
+  "bank_account_title": "First Last"
+}
+```
+
+The valid `bank_code` values are:
+
+```
+ACCESS BANK: 025
+ADB: 008
+ARB APEX & RURAL BANKS: 007
+BANK OF BARODA: 026
+BARCLAYS: 003
+BOA: 021
+BSIC: 027
+CAL BANK: 014
+CAPITAL BANK: 902
+ECOBANK: 013
+ENERGY: 029
+FAB: 017
+FBN: 020
+FIDELITY: 024
+FNB: 033
+GCB BANK: 004
+GN BANK: 912
+GT BANK: 023
+HFC: 011
+NIB: 005
+PRUDENTIAL: 018
+ROYAL BANK: 030
+SG GHANA: 009
+SOVEREIGN BANK: 034
+STANBIC: 019
+STANDARD CHARTERED: 002
+UBA: 006
+UMB: 010
+UNIBANK: 022
+UT BANK: 016
+ZENITH: 012
 ```
 
 ##### GHS:Mobile
