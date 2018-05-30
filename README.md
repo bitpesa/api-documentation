@@ -36,7 +36,7 @@ Once development is finished against our API, please contact BitPesa where our r
 > * Check the status of transactions both via webhooks and manually
 > * Handling and cancelling failed transactions
 
-You can also check our [quick integration guide](quick-integration.md) that contains the major points in making sure your implementation will be approved.
+You can also check our [quick integration guide](quick-integration.md) that contains the major points in making sure your implementation will be approved. You can also check our [additional features guide](additional-features.md) for some of the other features we support and you might want to use, and also the [reference documentation](https://api.bitpesa.co/documentation) which contains a reference of all of the available API endpoints we have.
 
 ## BitPesa API architecture
 
