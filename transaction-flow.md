@@ -195,6 +195,7 @@ Commonly used payout types are:
 * `GHS::Bank`: for Ghanaian bank account payments
 * `GHS::Mobile`: for Ghanaian mobile money payments
 * `UGX::Mobile`: for Ugandan mobile money payments
+* `TZS::Mobile`: for Tanzanian mobile money payments
 
 Unless you hold an internal balance with us the input currency and payout currency cannot be the same. If you wish to do same-currency transactions please contact our team for further details.
 
@@ -343,6 +344,17 @@ ZENITH: 012
   "last_name": "Last",
   "phone_number": "414123456"
     // local Ugandan format
+}
+```
+
+##### TZS:Mobile
+
+```javascript
+"details": {
+  "first_name": "First",
+  "last_name": "Last",
+  "phone_number": "221231234"
+    // local Tanzanian format
 }
 ```
 
