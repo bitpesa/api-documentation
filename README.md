@@ -76,6 +76,21 @@ The structure of the body we send will always follow the following template:
 
 If the endpoint we have to call is behind a firewall please let us know so we can tell you the exact IP addresses that you need to whitelist. In case of a transmission error we will also try to send the webhook again five times before dropping the request.
 
+The following are examples of some possible webhook flows and events. Please note this is not an exhaustive list however covers the majority of cases:
+
+#### Transaction success
+
+![transaction-success](uml/webhook-success.png)
+
+
+#### Transaction canceled
+
+![transaction-canceled](uml/webhook-canceled.png)
+
+#### Transaction refunded
+
+![transaction-refund-simple](uml/webhook-refund-simple.png)
+
 ### Metadata
 
 Most models in the BitPesa API allow storing any metadata, which will be returned when querying the object, including callouts from webhooks. This facility can be used to store any data on the models, including for example local IDs to help link them to the models inside the API user's system.
