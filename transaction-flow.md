@@ -138,6 +138,19 @@ This section contains the details of the sender. The first time a specific sende
 }
 ```
 
+In order to transact with Bitpesa we need to have an approved sender record. A typical flow for this will be the following:
+
+![Sender registration flow](uml/sender-kyc.png)
+
+When a sender is created you will receive a response which contains the senders status. Possible states for a sender are:
+
+* initial - When a sender is created and has not been through any KYC checking (cannot transact)
+* verified - A sender has passed sanction list checks (cannot transact)
+* approved - The sender has passed both KYC and sanction checks (**can** transact)
+* banned - An admin has banned the sender (cannot transact)
+* rejected - The sender has failed sanction list checks (cannot transact)
+* disabled - A sender is put into this state as a result of a delete request via the API (cannot transact)
+
 Notes:
 
 * The sender's phone number is composed of two parts, the `phone_country` (in ISO 2-letter format), and the `phone_number`. The phone number should be specified without the international prefix.
