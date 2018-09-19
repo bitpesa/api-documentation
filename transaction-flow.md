@@ -351,7 +351,7 @@ The valid `bank_code` values can be found on the [GHIPSS website](https://www.gh
     // Mandatory; Values: "O": Other, "PP": Passport, "NI": National ID
   "sender_identity_card_id" => 'AB12345678',
     // Mandatory
-  "identity_card_type" => "O",
+  "identity_card_type" => "NI",
     // Optional; Values: "PP": Passport, "NI": National ID
   "identity_card_id" => 'AB12345678'
     // Optional
