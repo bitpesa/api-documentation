@@ -209,6 +209,7 @@ Commonly used payout types are:
 * `GHS::Mobile`: for Ghanaian mobile money payments
 * `UGX::Mobile`: for Ugandan mobile money payments
 * `TZS::Mobile`: for Tanzanian mobile money payments
+* `MAD::Cash`: for Moroccan cash remittance payments
 
 Unless you hold an internal balance with us the input currency and payout currency cannot be the same. If you wish to do same-currency transactions please contact our team for further details.
 
@@ -296,49 +297,16 @@ Zenith International: 057
 "details": {
   "first_name": "First",
   "last_name": "Last",
-  "bank_code": "012"
+  "bank_code": "030100",
+  "bank_branch_sort_code": "030100", // Optional
   "bank_account": "123456789",
   "bank_account_title": "First Last"
 }
 ```
 
-The valid `bank_code` values are:
+The valid `bank_code` values can be found on the [GHIPSS website](https://www.ghipss.net/products-services/cheque-codeline-clearing/bank-sort-codes). They should be entered as 6 digits with leading zeros where possible
 
-```
-ACCESS BANK: 025
-ADB: 008
-ARB APEX & RURAL BANKS: 007
-BANK OF BARODA: 026
-BARCLAYS: 003
-BOA: 021
-BSIC: 027
-CAL BANK: 014
-CAPITAL BANK: 902
-ECOBANK: 013
-ENERGY: 029
-FAB: 017
-FBN: 020
-FIDELITY: 024
-FNB: 033
-GCB BANK: 004
-GN BANK: 912
-GT BANK: 023
-HFC: 011
-NIB: 005
-PRUDENTIAL: 018
-ROYAL BANK: 030
-SG GHANA: 009
-SOVEREIGN BANK: 034
-STANBIC: 019
-STANDARD CHARTERED: 002
-UBA: 006
-UMB: 010
-UNIBANK: 022
-UT BANK: 016
-ZENITH: 012
-```
-
-##### GHS:Mobile
+##### GHS::Mobile
 
 ```javascript
 "details": {
@@ -349,7 +317,7 @@ ZENITH: 012
 }
 ```
 
-##### UGX:Mobile
+##### UGX::Mobile
 
 ```javascript
 "details": {
@@ -360,7 +328,7 @@ ZENITH: 012
 }
 ```
 
-##### TZS:Mobile
+##### TZS::Mobile
 
 ```javascript
 "details": {
@@ -368,6 +336,38 @@ ZENITH: 012
   "last_name": "Last",
   "phone_number": "221231234"
     // local Tanzanian format
+}
+```
+
+##### MAD::Cash
+
+```javascript
+"details": {
+  "first_name": "First",
+  "last_name": "Last",
+  "phone_number": "212537718685"
+    // Mandatory; International format preferred
+  "sender_identity_card_type" => "O",
+    // Mandatory; Values: "O": Other, "PP": Passport, "NI": National ID
+  "sender_identity_card_id" => 'AB12345678',
+    // Mandatory
+  "identity_card_type" => "NI",
+    // Optional; Values: "PP": Passport, "NI": National ID
+  "identity_card_id" => 'AB12345678'
+    // Optional
+}
+```
+
+Please note when sending `MAD::Cash` payments you should subscribe to the `recipient.pending` webhook, as that will broadcast the payment reference ID the customer need to use to obtain the funds. Example webhook response excerpt:
+
+```javascript
+{  
+   (...)
+   "state":"pending",
+   "metadata": {
+     "payment_reference":"9M5GJRJUBCY"
+   },
+   (...)
 }
 ```
 
