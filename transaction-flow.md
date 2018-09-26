@@ -210,6 +210,8 @@ Commonly used payout types are:
 * `UGX::Mobile`: for Ugandan mobile money payments
 * `TZS::Mobile`: for Tanzanian mobile money payments
 * `MAD::Cash`: for Moroccan cash remittance payments
+* `EUR::Bank`: for IBAN bank transfers in EUR
+* `GBP::Bank`: for IBAN bank transfers in GBP
 
 Unless you hold an internal balance with us the input currency and payout currency cannot be the same. If you wish to do same-currency transactions please contact our team for further details.
 
@@ -336,6 +338,30 @@ The valid `bank_code` values can be found on the [GHIPSS website](https://www.gh
   "last_name": "Last",
   "phone_number": "221231234"
     // local Tanzanian format
+}
+```
+
+##### EUR::Bank
+
+```javascript
+"details": {
+  "first_name": "First",
+  "last_name": "Last",
+  "bank_name": "Deutsche Bank",
+  "iban": "DE89370400440532013000",
+  "bic": "DEUTDEBBXXX" // Optional
+}
+```
+
+##### GBP::Bank
+
+```javascript
+"details": {
+  "first_name": "First",
+  "last_name": "Last",
+  "bank_name": "Lloyds Bank",
+  "iban": "GB29LOYD60161331926819",
+  "bic": "LOYDGB2L" // Optional
 }
 ```
 
