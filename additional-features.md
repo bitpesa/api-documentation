@@ -13,11 +13,11 @@ POST /v1/account_validations
 {
   "account_id": "12345678", # account number to query
   "bank_code": "000", # bank code to query - same codes are used as for creating the transactions
-  "country": "NG" # Either "NG" for Nigeria or "GH" for Ghana
+  "country": "NG" # Only "NG" is supported for now
 }
 ```
 
-The response will either provide you with the account title:
+The response will either be a `200 OK`, and provide you with the account title:
 
 ```
 {
@@ -27,7 +27,7 @@ The response will either provide you with the account title:
 }
 ```
 
-Or an error description:
+Or a `422 Unprocessably Entity` status code, with an error description in the body:
 
 ```
 {
