@@ -272,7 +272,7 @@ Heritage Bank: 030
 Jaiz Bank: 301
 Keystone: 082
 Mainstreet: 014
-Skye Bank: 076
+Polaris Bank: 076
 Stanbic IBTC Bank: 039
 Sterling bank: 232
 Union Bank: 032
@@ -506,7 +506,7 @@ A transaction object looks like the following:
                 "301": "Jaiz Bank",
                 "082": "Keystone ",
                 "014": "Mainstreet ",
-                "076": "Skye Bank",
+                "076": "Polaris Bank",
                 "039": "Stanbic IBTC Bank ",
                 "232": "Sterling bank",
                 "032": "Union Bank",
@@ -529,7 +529,7 @@ A transaction object looks like the following:
                     "301": "Jaiz Bank",
                     "082": "Keystone ",
                     "014": "Mainstreet ",
-                    "076": "Skye Bank",
+                    "076": "Polaris Bank",
                     "039": "Stanbic IBTC Bank ",
                     "232": "Sterling bank",
                     "032": "Union Bank",
