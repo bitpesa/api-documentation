@@ -209,6 +209,7 @@ Commonly used payout types are:
 * `GHS::Mobile`: for Ghanaian mobile money payments
 * `UGX::Mobile`: for Ugandan mobile money payments
 * `TZS::Mobile`: for Tanzanian mobile money payments
+* `XOF::Mobile`: for Senegalese mobile money payments
 * `MAD::Cash`: for Moroccan cash remittance payments
 * `EUR::Bank`: for IBAN bank transfers in EUR
 * `GBP::Bank`: for IBAN bank transfers in GBP
@@ -395,6 +396,24 @@ Please note when sending `MAD::Cash` payments you should subscribe to the `recip
    },
    (...)
 }
+```
+
+##### XOF::Mobile
+
+```javascript
+"details": {
+  "first_name": "First",
+  "last_name": "Last",
+  "mobile_provider": "orange", // "orange" or "tigo"
+  "phone_number": "774044436" // local Senegalese format
+}
+```
+
+The valid `mobile_provider` values are:
+
+```
+orange
+tigo
 ```
 
 ### Metadata
