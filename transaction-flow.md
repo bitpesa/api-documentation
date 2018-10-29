@@ -404,8 +404,8 @@ Please note when sending `MAD::Cash` payments you should subscribe to the `recip
 "details": {
   "first_name": "First",
   "last_name": "Last",
-  "mobile_provider": "orange",
-  "phone_number": "774044436"
+  "mobile_provider": "orange", // "orange" or "tigo"
+  "phone_number": "774044436" // local Senegalese format
 }
 ```
 
