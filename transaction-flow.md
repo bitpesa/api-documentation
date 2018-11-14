@@ -138,9 +138,7 @@ This section contains the details of the sender. The first time a specific sende
 }
 ```
 
-In order to transact with Bitpesa we need to have an approved sender record. A typical flow for this will be the following:
-
-![Sender registration flow](uml/sender-kyc.png)
+In order to transact with Bitpesa we need to have an approved sender record.
 
 When a sender is created you will receive a response which contains the senders status. Possible states for a sender are:
 
@@ -151,13 +149,22 @@ When a sender is created you will receive a response which contains the senders 
 * rejected - The sender has failed sanction list checks (cannot transact)
 * disabled - A sender is put into this state as a result of a delete request via the API (cannot transact)
 
+The flow for approving senders depend on whether KYC requirements are waived for your integration or not (See the notes section).
+
+In case the KYC requirements are not waived then the typical flow for approval this will be the following:
+
+![Sender registration flow](uml/sender-kyc.png)
+
+In case the KYC requirements are waived then all created senders will be approved immediately, and can be used for transactions.
+
 Notes:
 
 * The sender's phone number is composed of two parts, the `phone_country` (in ISO 2-letter format), and the `phone_number`. The phone number should be specified without the international prefix.
-* The `documents` should contain all documents necessary to KYC the sender. If you already do KYC on your system, then please contact us and we can waive this requirement from you. In this case you can send us an empty list of documents: `[]`. In case you don't do KYC on your site, then you will need to send us documents, for this please see the [API reference documentation](https://api.bitpesa.co/documentation#documents). In case you already do KYC on your system and we waive the sender documents requirements, then all of the senders you create in the system will be immediately set to the `approved` state and you won't need to wait for them to get approved.
+* The `documents` should contain all documents necessary to KYC the sender. If you already do KYC on your system, then please contact us and we can waive this requirement from you. In this case you should send us an empty list of documents: `"documents": [ ]` in the request. In case you don't do KYC on your site, then you will need to send us documents, for more details on this please see the [API reference documentation](https://api.bitpesa.co/documentation#documents).
+* In case you already do KYC on your system and we waive the sender documents requirements, then all of the senders you create in the system will be immediately set to the `approved` state and you won't need to wait for them to get approved.
 * The `metadata` field can store any information you wish to store with the sender. Usual data would include the ID inside your own system for this particular sender. If you don't wish to store anything simply specify `{}`.
 
-Once a sender is created and is used, the next time you should only send the ID of the sender. This is so we can match the same sender across multiple transactions for KYC and audit purposes. In this case the sender inside the transaction creation call would look like the following:
+Once a sender is created and is used, the next time you MUST only send the ID of the sender. This is so we can match the same sender across multiple transactions for KYC and audit purposes. In this case the sender inside the transaction creation call would look like the following:
 
 ```json
 {
