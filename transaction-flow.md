@@ -1,25 +1,43 @@
 # The transaction flow
 
-- [Introduction](#introduction)
-- [Creating transactions](#creating-transactions)
-  - [Input currency](#input-currency)
-  - [Sender](#sender)
-  - [Recipient](#recipient)
-    - [Payout type](#payout-type)
-    - [Requested amount and currency](#requested-amount-and-currency)
-    - [Payout details](#payout-details)
-  - [Metadata](#metadata)
-- [Transaction object](#transaction-object)
-  - [id](#id)
-  - [state](#state)
-  - [state_reason](#state-reason)
-  - [input_amount and input_currency](#input-amount-and-input-currency)
-  - [sender](#sender)
-  - [recipients](#recipients)
-- [Funding transactions](#funding-transactions)
-- [Checking the state of the transaction](#checking-the-state-of-the-transaction)
-- [Receiving error messages](#receiving-error-messages)
-- [Cancelling recipients and transactions](#cancelling-recipients-and-transactions)
+- [The transaction flow](#the-transaction-flow)
+  - [Introduction](#introduction)
+  - [Creating transactions](#creating-transactions)
+    - [Input currency](#input-currency)
+    - [Sender](#sender)
+    - [Recipient](#recipient)
+      - [Payout type](#payout-type)
+      - [Requested amount and currency](#requested-amount-and-currency)
+      - [Payout details](#payout-details)
+        - [NGN::Bank](#ngnbank)
+        - [NGN::Mobile](#ngnmobile)
+        - [GHS::Bank](#ghsbank)
+        - [GHS::Mobile](#ghsmobile)
+        - [UGX::Mobile](#ugxmobile)
+        - [TZS::Mobile](#tzsmobile)
+        - [EUR::Bank](#eurbank)
+        - [GBP::Bank](#gbpbank)
+        - [MAD::Cash](#madcash)
+        - [XOF::Mobile](#xofmobile)
+    - [Metadata](#metadata)
+  - [Transaction object](#transaction-object)
+    - [id](#id)
+    - [state](#state)
+    - [state_reason](#statereason)
+    - [input_amount and input_currency](#inputamount-and-inputcurrency)
+    - [sender](#sender)
+    - [recipients](#recipients)
+      - [id](#id-1)
+      - [output_amount and output_currency](#outputamount-and-outputcurrency)
+      - [state](#state-1)
+      - [state_reason](#statereason-1)
+      - [editable](#editable)
+      - [may_cancel](#maycancel)
+      - [payout_method.fields](#payoutmethodfields)
+  - [Funding transactions](#funding-transactions)
+  - [Checking the state of the transaction](#checking-the-state-of-the-transaction)
+  - [Receiving error messages](#receiving-error-messages)
+  - [Cancelling recipients and transactions](#cancelling-recipients-and-transactions)
 
 ## Introduction
 
@@ -395,7 +413,7 @@ The valid `bank_code` values can be found on the [GHIPSS website](https://www.gh
 Please note when sending `MAD::Cash` payments you should subscribe to the `recipient.pending` webhook, as that will broadcast the payment reference ID the customer need to use to obtain the funds. Example webhook response excerpt:
 
 ```javascript
-{  
+{
    (...)
    "state":"pending",
    "metadata": {
@@ -681,7 +699,7 @@ in case there were validation errors you can find all of the fields and their va
 
 ## Funding transactions
 
-By default when creating a transaction we will collect the money from the sender. For more information on how to handle payins please visit the [API reference documentation](https://api.bitpesa.co/documentation#fetching-possible-payin-methods
+By default when creating a transaction we will collect the money from the sender. For more information on how to handle some collections please visit [Collections](additional-features.md#collections-from-senders). You can also check the [API reference documentation](https://api.bitpesa.co/documentation#fetching-possible-payin-methods
 )
 
 However if your site already does collection on the sender's behalf then please contact us, and we can set up an internal account with us.
