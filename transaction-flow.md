@@ -138,8 +138,6 @@ This section contains the details of the sender. The first time a specific sende
 }
 ```
 
-In order to transact with Bitpesa we need to have an approved sender record.
-
 When a sender is created you will receive a response which contains the senders status. Possible states for a sender are:
 
 * initial - When a sender is created and has not been through any KYC checking (cannot transact)
@@ -149,13 +147,13 @@ When a sender is created you will receive a response which contains the senders 
 * rejected - The sender has failed sanction list checks (cannot transact)
 * disabled - A sender is put into this state as a result of a delete request via the API (cannot transact)
 
-The flow for approving senders depend on whether KYC requirements are waived for your integration or not (See the notes section).
+In order to transact with Bitpesa we need to have an `approved` sender record. The flow for approving senders depend on whether KYC requirements are waived for your integration or not (See the notes section).
 
 In case the KYC requirements are not waived then the typical flow for approval this will be the following:
 
 ![Sender registration flow](uml/sender-kyc.png)
 
-In case the KYC requirements are waived then all created senders will be approved immediately, and can be used for transactions.
+In case the KYC requirements are waived then all created senders will be in the `approved` state immediately, and can be immediately used for transactions.
 
 Notes:
 
