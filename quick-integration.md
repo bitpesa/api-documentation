@@ -1,5 +1,14 @@
 # Quick integration guide
 
+- [Quick integration guide](#quick-integration-guide)
+  - [Authentication](#authentication)
+  - [Creating transactions](#creating-transactions)
+  - [Funding transactions](#funding-transactions)
+  - [Checking transaction status](#checking-transaction-status)
+  - [Handling errors](#handling-errors)
+  - [Re-using senders](#re-using-senders)
+
+
 Before you start with the implementation please [contact our team](mailto:info@bitpesa.co) as they will assess whether we can waive some of the requirements around our API, including the need for KYC'ing the senders and whether you can collect money on our behalf.
 
 Once you finish with the integration we will have a call to check that your implementation works as expected, and as a minimum supports the following functionalities:
