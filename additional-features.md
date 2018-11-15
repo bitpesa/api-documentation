@@ -78,7 +78,9 @@ The generic structure of a transaction that collects the equivalent of 100 USD f
 {
   "input_currency": "NGN",
   "payin_methods": [
-    // payin method details
+    {
+      // payin method details
+    }
   ],
   "sender": {
     // sender details
