@@ -270,6 +270,7 @@ Examples for the most commonly used payout providers:
 The valid `bank_code` values are:
 
 ```
+Access Bank: 044
 Diamond Bank: 063
 EcoBank: 050
 FCMB Bank: 214
