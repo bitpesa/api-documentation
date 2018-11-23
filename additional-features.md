@@ -66,13 +66,13 @@ The BitPesa API can also be used to collect money from various senders. We curre
 * GBP bank collections through IBAN
 * EUR bank collections through IBAN
 
-The collected money can then be used to fund any of the an automated payout types (see the [transaction flow](transaction-flow.md)), or it can be used to fund a bank account. In the latter case payments will be aggregated and only sent out manually by our team once requested.
+The collected money can then be used to fund any of the an automated payout types (see the [transaction flow](transaction-flow.md)), or it can be used to fund the user's internal balance. In the latter case payments will be aggregated and only sent out manually by our team once requested.
 
 How to handle automated collection requests are based on the particular currency and type of collection.
 
 You can also check the [API reference documentation](https://api.bitpesa.co/documentation#fetching-possible-payin-methods) for more details.
 
-The generic structure of a transaction that collects the equivalent of 100 USD from senders and pays out to an USD bank account (that will be payed out manually by our team in bulk) looks like the following:
+The generic structure of a transaction that collects the equivalent of 100 USD from senders and pays out to the USD balance (that will be payed out manually by our team in bulk) looks like the following:
 
 ```javascript
 {
@@ -90,13 +90,11 @@ The generic structure of a transaction that collects the equivalent of 100 USD f
       "requested_amount": "100",
       "requested_currency": "USD",
       "payout_method": {
-        "type": "USD::Manual::Bank",
+        "type": "USD::Balance",
         "details": {
-          "first_name": "First",
-          "last_name": "Last",
-          "bank_code": "US Bank",
-          "bank_account": "12345678",
-          "bank_account_title": "First Last"
+          "reference": "REF-000"
+            // Reference number that you wish to appear on reconciliation reports.
+            // The field is optional
         }
       }
     }
@@ -105,7 +103,7 @@ The generic structure of a transaction that collects the equivalent of 100 USD f
 }
 ```
 
-Please note that this is just an example, the `recipient` details, including the `requested_amount` and `requested_currency` can be modified based on the steps described at the [transaction flow](transaction-flow.md) documentation. You can also use any of the automated payout types instead of `USD::Manual::Bank`, in which case once we receive the funds the payment will be done automatically.
+Please note that this is just an example, the `recipient` details, including the `requested_amount` and `requested_currency` can be modified based on the steps described at the [transaction flow](transaction-flow.md) documentation. You can also use any of the automated payout types instead of `USD::Balance`, in which case once we receive the funds the payment will be done automatically. The funds can also be sent to any other currency, just make sure that the `requested_currency` and the `type` matches, e.g for `NGN` you use `NGN::Balance`.
 
 The response will always look like the following. It is very similar to the standard transaction response, but also contains details on how to handle the collection request:
 
