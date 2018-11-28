@@ -109,7 +109,7 @@ In both cases we will return the account holder name in the recipient's metadata
 }
 ```
 
-In case the account number doesn't exist at the bank or there is a connectivity issue with the banking system you will receive an error with the following message: "We could not werify that the account entered exist. This could be a temporary error with a bank, or it can mean the details entered were incorrect. We will retry the transaction". Unfortunately due to how the banking system works in the supported markets it is not always possible to differentiate an invalid account number from a connectivity issue, hence we will automatcially retry the name enquiry until we get a valid response, or the transaction is cancelled.
+In case the account number doesn't exist at the bank or there is a connectivity issue with the banking system you will receive an error with the following message: "We could not verify that the account entered exist. This could be a temporary error with a bank, or it can mean the details entered were incorrect. We will retry the transaction". Unfortunately due to how the banking system works in the supported markets it is not always possible to differentiate an invalid account number from a connectivity issue, hence we will automatcially retry the name enquiry until we get a valid response, or the transaction is cancelled.
 
 ## Collections from senders
 
