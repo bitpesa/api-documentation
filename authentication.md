@@ -20,7 +20,7 @@ For the following example, we will assume you are using the following details to
 * API Key: `YOUR_API_KEY`
 * API Secret: `YOUR_API_SECRET`
 * Nonce: `00c6a48a-ccb8-4653-a0c8-de7c1ab67529`
-* Response Body:
+* Request Body:
 
 ```json
 {
