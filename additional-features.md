@@ -1,7 +1,8 @@
 # Additional Features
 
 - [Additional Features](#additional-features)
-  - [Bank account name validation](#bank-account-name-validation)
+  - [Bank account name enquiry](#bank-account-name-enquiry)
+  - [Name validation in transactions](#name-validation-in-transactions)
   - [Collections from senders](#collections-from-senders)
     - [NGN card collection requests through Interswitch](#ngn-card-collection-requests-through-interswitch)
     - [NGN card and mobile collection requests through Paga](#ngn-card-and-mobile-collection-requests-through-paga)
