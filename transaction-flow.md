@@ -798,3 +798,5 @@ Note: cancelling is only available if the `may_cancel` field is on the recipient
 > **WARNING**
 >
 > For your application to get approved it MUST support the cancellation of recipients.
+
+You can also enable the `auto_refund` trait on the transaction in which case your transactions will automatically be cancelled and refunded if they can't be paid out. For more information Please check the [auto cancellation](additional-features.md#auto-cancellation-and-refund-of-transactions) documentation.

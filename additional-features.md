@@ -8,6 +8,7 @@
     - [GHS mobile collections through Interpay](#ghs-mobile-collections-through-interpay)
     - [TZS and UGX mobile collection using Beyonic](#tzs-and-ugx-mobile-collection-using-beyonic)
     - [GBP and EUR IBAN collections](#gbp-and-eur-iban-collections)
+  - [Auto cancellation and refund of transactions](#auto-cancellation-and-refund-of-transactions)
 
 
 ## Bank account name validation
@@ -335,3 +336,28 @@ The user will then need to follow the instructions as shown in the response's `o
 ```
 
 The user will then need to send the appropriate funds to the IBAN shown above, with the reference number used as "payment details". Note that IBAN  payments can take up to 5 business days to arrive. Once the payment has been received a `transaction.paid_in` webhook will be sent out.
+
+## Auto cancellation and refund of transactions
+
+By default once a transaction has been paid we will constantly try to pay it out until we either succeed, or the transaction is cancelled by you. This is to allow you to decide how long you wish us to retry payouts, and so you can control the refund process.
+
+However as this can become complicated we also provide a feature where you can ask us to auto-cancel transactions in case they fail payouts. When the feature is enabled we will automatically cancel and refund any transaction that couldn't be payed out in 24 hours from funding.
+
+To enable auto cancellation please enable the `auto_refund` trait during transaction creation:
+ ```javascript
+POST /v1/transactions
+ {
+   "transaction":{
+      "traits": {
+        "auto_refund": true
+      },
+      (...) // additional transaction details
+   }
+}
+```
+
+We can also enable auto refund by default across all transactions created by you. If this is of interest please contact our team so we can configure your account as such. If the feature is enabled, then it can be disabled on a per-transaction basis by specifying `"auto_refund": false` in the `traits` section.
+
+Once the trait is enabled and 24 hours have elapsed since the transaction has been funded without a successful payouts we will cancel the transaction. If the transaction was paid from the account balance the funds will also be immediately returned to the account balance and can be used immediagely to fund new transactions.
+
+Pleae note that if the payout is pending when the 24 hour has been elapsed we will wait for confirmation from our provider whether the payout was successful or not. If it wasn't we will cancel the transaction immediately after we receive the confirmation. Note that this means that even if auto refund is enabled some transactions might take longer than 24 hours to get cancelled and refunded.
