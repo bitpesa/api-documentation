@@ -8,6 +8,7 @@
     - [GHS mobile collections through Interpay](#ghs-mobile-collections-through-interpay)
     - [TZS and UGX mobile collection using Beyonic](#tzs-and-ugx-mobile-collection-using-beyonic)
     - [GBP and EUR IBAN collections](#gbp-and-eur-iban-collections)
+  - [Editing recipients](#editing-recipients)
 
 
 ## Bank account name validation
@@ -335,3 +336,27 @@ The user will then need to follow the instructions as shown in the response's `o
 ```
 
 The user will then need to send the appropriate funds to the IBAN shown above, with the reference number used as "payment details". Note that IBAN  payments can take up to 5 business days to arrive. Once the payment has been received a `transaction.paid_in` webhook will be sent out.
+
+## Editing recipients
+
+Occasionally there are errors on payouts that are because the recipient details are wrong, for example the account number entered is invalid. While you can simply cancel the transaction and create a new one with the updated details, occasionally it might be easier to update the recipient.
+
+To update the recipient you can use the `PATCH /v1/recipients/{recipient_id}` endpoint. Please note that the ID you have to use is for the recipient and not the transaction (similarly to how you can cancel recipients)
+
+To use the endpoint you need to set the fields you wish to update. For example to change the `bank_account` you have to do the following:
+
+```javascript
+{
+  "recipient": {
+    "payout_method": {
+      "details": {
+        "bank_account": "12345679"
+      }
+    }
+  }
+}
+```
+
+Note: Recipients can only be updated when the `editable` flag on the recipient is set to `true`.
+
+Note: If there no payouts pending then updating recipients will also trigger an immediate retry of a payout with the new details.
