@@ -9,7 +9,7 @@
     - [TZS and UGX mobile collection using Beyonic](#tzs-and-ugx-mobile-collection-using-beyonic)
     - [GBP and EUR IBAN collections](#gbp-and-eur-iban-collections)
   - [Auto cancellation and refund of transactions](#auto-cancellation-and-refund-of-transactions)
-
+  - [Editing recipients](#editing-recipients)
 
 ## Bank account name validation
 
@@ -361,3 +361,27 @@ We can also enable auto refund by default across all transactions created by you
 Once the trait is enabled and 24 hours have elapsed since the transaction has been funded without a successful payout, we will cancel the transaction. If the transaction was paid from the account balance, the funds will also be immediately returned to the account balance and can be used immediately to fund new transactions.
 
 Please note that if the payout is pending when the 24 hour has been elapsed, we will wait for confirmation from our provider whether the payout was successful or not. If it wasn't, we will cancel the transaction immediately after we receive the confirmation. Note that this means that even if auto refund is enabled some transactions might take longer than 24 hours to get cancelled and refunded.
+
+## Editing recipients
+
+Occasionally there are errors on payouts that are because the recipient details are wrong, for example the account number entered is invalid. While you can simply cancel the transaction and create a new one with the updated details, occasionally it might be easier to update the recipient.
+
+To update the recipient you can use the `PATCH /v1/recipients/{recipient_id}` endpoint. Please note that the ID you have to use is for the recipient and not the transaction (similarly to how you can cancel recipients)
+
+To use the endpoint you need to set the fields you wish to update. For example to change the `bank_account` you have to do the following:
+
+```javascript
+{
+  "recipient": {
+    "payout_method": {
+      "details": {
+        "bank_account": "12345679"
+      }
+    }
+  }
+}
+```
+
+Note: Recipients can only be updated when the `editable` flag on the recipient is set to `true`.
+
+Note: If there no payouts pending then updating recipients will also trigger an immediate retry of a payout with the new details.

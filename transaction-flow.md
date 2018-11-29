@@ -178,7 +178,7 @@ Notes:
 * The sender's phone number is composed of two parts, the `phone_country` (in ISO 2-letter format), and the `phone_number`. The phone number should be specified without the international prefix.
 * The `documents` should contain all documents necessary to KYC the sender.
   * If you already do KYC on your system, then please contact us and we can waive this requirement from you. In this case you should send us an empty list of documents: `"documents": [ ]` in the request. All of the senders you create in the system will be immediately set to the `approved` state and you won't need to wait for them to get approved.
-  * If when creating senders or transactions, you get the following error in the response: `"errors":{"documents":[{"error":"blank"}]}` it means that KYC requirements are not yet waived for your account. If we already approved your KYC process and so they should be, then please contact us so we can rectify the issue and update your account accordingly.
+  * If when creating senders or transactions you get the following error in the response: `"errors":{"documents":[{"error":"blank"}]}` it means that KYC requirements are not yet waived for your account. If we already approved your KYC process and so they should be, then please contact us so we can rectify the issue and update your account accordingly.
   * In case you don't do KYC on your site, then you will need to send us documents that we can use to verify the sender's identity, for more details on this please see the [API reference documentation](https://api.bitpesa.co/documentation#documents).
 * The `metadata` field can store any information you wish to store with the sender. Usual data would include the ID inside your own system for this particular sender. If you don't wish to store anything simply specify `{}`.
 
@@ -678,7 +678,7 @@ The state of the recipient. Can be one of the following:
 * `stuck`: We didn't receive a response from the provider in time, and we don't know whether it has been paid our not. Please contact us for further details.
 * `overpaid`: The recipient was paid out more than was requested (not applicable for most of the payout providers)
 * `canceled`: The transaction has been cancelled, and we will refund the money soon
-* `exception`: Some exception has happened; please contact BitPEsa
+* `exception`: Some exception has happened; please contact BitPesa
 
 #### state_reason
 
