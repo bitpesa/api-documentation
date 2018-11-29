@@ -178,7 +178,7 @@ Notes:
 * The sender's phone number is composed of two parts, the `phone_country` (in ISO 2-letter format), and the `phone_number`. The phone number should be specified without the international prefix.
 * The `documents` should contain all documents necessary to KYC the sender.
   * If you already do KYC on your system, then please contact us and we can waive this requirement from you. In this case you should send us an empty list of documents: `"documents": [ ]` in the request. All of the senders you create in the system will be immediately set to the `approved` state and you won't need to wait for them to get approved.
-  * If, when creating senders or transactions you get the following error in the response: `"errors":{"documents":[{"error":"blank"}]}` it means that KYC requirements are not yet waived for your account. If we already approved your KYC process and so they should be, then please contact us so we can rectify the issue and update your account accordingly.
+  * If when creating senders or transactions you get the following error in the response: `"errors":{"documents":[{"error":"blank"}]}` it means that KYC requirements are not yet waived for your account. If we already approved your KYC process and so they should be, then please contact us so we can rectify the issue and update your account accordingly.
   * In case you don't do KYC on your site, then you will need to send us documents that we can use to verify the sender's identity, for more details on this please see the [API reference documentation](https://api.bitpesa.co/documentation#documents).
 * The `metadata` field can store any information you wish to store with the sender. Usual data would include the ID inside your own system for this particular sender. If you don't wish to store anything simply specify `{}`.
 
@@ -239,7 +239,7 @@ Commonly used payout types are:
 * `EUR::Bank`: for IBAN bank transfers in EUR
 * `GBP::Bank`: for IBAN bank transfers in GBP
 
-Unless you hold an internal balance with us the input currency and payout currency cannot be the same. If you wish to do same-currency transactions please contact our team for further details.
+Unless you hold an internal balance with us, the input currency and payout currency cannot be the same. If you wish to do same-currency transactions please contact our team for further details.
 
 #### Requested amount and currency
 
@@ -263,7 +263,7 @@ A few common examples:
 
 * Input currency is `USD` Payout type is `NGN::Bank`. Requested amount is `100 EUR`.
 
-  Although the requested currency is neither the input nor the output one, we will calculate how much `100 EUR` is in `USD` and in `NGN` and will return those values in the input and output amounts. We will afterwards do the currency eschange directly, and will not involve the requested currency at all.
+  Although the requested currency is neither the input nor the output one, we will calculate how much `100 EUR` is in `USD` and in `NGN` and will return those values in the input and output amounts. We will afterwards do the currency exchange directly, and will not involve the requested currency at all.
 
 #### Payout details
 
@@ -444,13 +444,13 @@ tigo
 
 ### Metadata
 
-Similarly to the sender you can store any kind of information to the transaction, usually the local ID for the transaction within your system. If you don't wish to store anything leave the field empty: `{}`
+Similarly to the sender, you can store any kind of information to the transaction, usually the local ID for the transaction within your system. If you don't wish to store anything leave the field empty: `{}`
 
 ## Transaction object
 
 Once the transaction is created successfully, you will receive back a transaction object. This object will always contain all details about the sender, the transaction and the recipients.
 
-In case the transaction couldn't be created you will get back a `422` response, and inside the body you should find all of the vaildation messages which should be fixed.
+In case the transaction couldn't be created, you will get back a `422` response and inside the body you should find all of the vaildation messages which should be fixed.
 
 A transaction object looks like the following:
 
@@ -620,11 +620,11 @@ A transaction object looks like the following:
 }
 ```
 
-As shown the response contains a lot of information, the most importants are the following:
+As shown the response contains a lot of information, the most important are the following:
 
 ### id
 
-The ID if the transaction
+The ID of the transaction
 
 ### state
 
@@ -651,7 +651,7 @@ This is the amount that has to be collected from the sender, or funded from the 
 
 ### sender
 
-The full details of the sender. If this is a new sender please note of the `id` field, as that MUST be used in subsequent transaction creation calls that are from the same sender
+The full details of the sender. If this is a new sender, please note of the `id` field, as that MUST be used in subsequent transaction creation calls that are from the same sender
 
 ### recipients
 
@@ -678,7 +678,7 @@ The state of the recipient. Can be one of the following:
 * `stuck`: We didn't receive a response from the provider in time, and we don't know whether it has been paid our not. Please contact us for further details.
 * `overpaid`: The recipient was paid out more than was requested (not applicable for most of the payout providers)
 * `canceled`: The transaction has been cancelled, and we will refund the money soon
-* `exception`: Some exception has happened, please contact BitPEsa
+* `exception`: Some exception has happened; please contact BitPesa
 
 #### state_reason
 
@@ -696,16 +696,16 @@ Shows whether the payout to the recipient can be cancelled at this state or not.
 
 #### payout_method.fields
 
-in case there were validation errors you can find all of the fields and their valid values for the specified payout method. This can also include the available bank codes as well for bank payout providers.
+In case there were validation errors you can find all of the fields and their valid values for the specified payout method. This can also include the available bank codes as well for bank payout providers.
 
 ## Funding transactions
 
-By default when creating a transaction we will collect the money from the sender. For more information on how to handle some collections please visit [Collections](additional-features.md#collections-from-senders). You can also check the [API reference documentation](https://api.bitpesa.co/documentation#fetching-possible-payin-methods
+By default, when creating a transaction we will collect the money from the sender. For more information on how to handle some collections, please visit [Collections](additional-features.md#collections-from-senders). You can also check the [API reference documentation](https://api.bitpesa.co/documentation#fetching-possible-payin-methods
 )
 
-However if your site already does collection on the sender's behalf then please contact us, and we can set up an internal account with us.
+However, if your site already does collection on the sender's behalf then please contact us and we can set you up with an internal account with us.
 
-Once you have an internal account you can use that as well to fund transactions.
+Once you have an internal account, you can use that as well to fund transactions.
 
 Funding transactions can be done using the `POST /v1/accounts/debits` endpoint, with the following body:
 
@@ -718,7 +718,7 @@ Funding transactions can be done using the `POST /v1/accounts/debits` endpoint, 
 }
 ```
 
-To successfully fund a transactions:
+To successfully fund a transaction:
 
 * The `currency` needs to be the same as the `input_currency` on the transaction.
 * The `amount` has to be the same as the `input_amount` on the transaction
@@ -729,7 +729,7 @@ Once the transaction is funded, we will immediately start trying to pay out the 
 
 ## Checking the state of the transaction
 
-To manually check the state of the transaction use the `GET /v1/transactions/ID` endpoint, where the `ID` is the id of the transaction.
+To manually check the state of the transaction, use the `GET /v1/transactions/ID` endpoint, where the `ID` is the id of the transaction.
 
 However to get real-time information on when a transaction's state changes please create webhooks for transaction state changes using the developer portal, or the API, where we will send a response every time the transaction's state is changed.
 
@@ -739,13 +739,13 @@ However to get real-time information on when a transaction's state changes pleas
 
 ## Receiving error messages
 
-Because payouts happen on the recipient level inside our system, any kind of issues with the payouts will appear on the recipient. To get real-time information on issues with payouts, please create webhooks for transaction state changes using the developer portal, or the API, where we will send a response every time the recipient's state changes to error.
+Because payouts happen on the recipient level inside our system, any kind of issues with the payouts will appear on the recipient. To get real-time information on issues with payouts, please create webhooks for transaction and recipient state changes using the developer portal, or the API, where we will send a response every time the recipient's state changes to error.
 
 The error message can be found inside the `state_reason` field on the recipient.
 
-Note that as the errors are sent on the recipient you will receive a recipient object in the webhook and not a full transaction. You can find the transaction id inside the `transaction_id` property of the recipient.
+Note that as the errors are sent on the recipient, you will receive a recipient object in the webhook and not a full transaction. You can find the transaction id inside the `transaction_id` property of the recipient.
 
-For example on an error you will receive a webhook like this:
+For example, on an error you will receive a webhook like this:
 
 ```
 {
@@ -787,12 +787,11 @@ For example on an error you will receive a webhook like this:
 
 > **WARNING**
 >
-> For your application to get approved it MUST support obtaining the error message from the recipient. It also MUST use primarily the webhook functionality to obtain whenever there's an issue, and only fall-back to using `GET` calls against the transaction occasionally.
+> For your application to get approved, it MUST support obtaining the error message from the recipient. It MUST also primarily use the webhook functionality to be notified of any errors, and only fall-back to using `GET` calls against the transaction occasionally.
 
 ## Cancelling recipients and transactions
 
-In case there are errors with the payout and you wish to cancel it you can do so by calling the `DELETE /v1/recipients/ID` endpoint, where `ID` is the id of the recipient (and NOT the transaction). Once the request is processed, and the recipient can be cancelled, it will be cancelled immediately. If the transaction was funded from an internal balance, it will then also be refunded.
-
+In case there are errors with the payout and you wish to cancel it, you can do so by calling the `DELETE /v1/recipients/ID` endpoint, where `ID` is the id of the recipient (and NOT the transaction). If the recipient can be cancelled, this request, once processed, will cancel it. If the transaction was funded from an internal balance, it will then also be refunded.
 Note: cancelling is only available if the `may_cancel` field is on the recipient true.
 
 > **WARNING**
