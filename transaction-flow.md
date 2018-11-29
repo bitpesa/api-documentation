@@ -678,7 +678,7 @@ The state of the recipient. Can be one of the following:
 * `stuck`: We didn't receive a response from the provider in time, and we don't know whether it has been paid our not. Please contact us for further details.
 * `overpaid`: The recipient was paid out more than was requested (not applicable for most of the payout providers)
 * `canceled`: The transaction has been cancelled, and we will refund the money soon
-* `exception`: Some exception has happened; please contact BitPEsa
+* `exception`: Some exception has happened; please contact BitPesa
 
 #### state_reason
 
