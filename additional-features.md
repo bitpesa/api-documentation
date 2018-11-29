@@ -78,7 +78,7 @@ POST /v1/transactions
 
 We can also enable name validation by default across all transactions created by you. If this is of interest please contact our team so we can configure your account as such. If the feature is enabled, then it can be disabled on a per-transaction basis by specifying `"account_validation": false` in the `traits` section.
 
-One the trait is enabled we will do a name enquiry from the bank and check if the name we get back matches the name recivied in the recipient details. If they match we will go ahead with the payout. If it doesn't we will stop the payout and return an error message describing that the transaction will not proceed unless the recipient details are updated to match the account holder name, or name validation is disabled on the transaction.
+Once the trait is enabled we will do a name enquiry from the bank and check if the name we get back matches the name received in the recipient details. If they match we will go ahead with the payout. If it doesn't we will stop the payout and return an error message describing that the transaction will not proceed unless the recipient details are updated to match the account holder name, or name validation is disabled on the transaction.
 
 In both cases we will return the account holder name in the recipient's metadata. For example if you entered "JOHN SMITH" as the recipient name, but the account holder is in fact "JANE DOE" then you will receive a `recipient.error` webhook with the following details:
 
