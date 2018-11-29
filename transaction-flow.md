@@ -739,7 +739,7 @@ However to get real-time information on when a transaction's state changes pleas
 
 ## Receiving error messages
 
-Because payouts happen on the recipient level inside our system, any kind of issues with the payouts will appear on the recipient. To get real-time information on issues with payouts, please create webhooks for transaction ad recipient state changes using the developer portal, or the API, where we will send a response every time the recipient's state changes to error.
+Because payouts happen on the recipient level inside our system, any kind of issues with the payouts will appear on the recipient. To get real-time information on issues with payouts, please create webhooks for transaction and recipient state changes using the developer portal, or the API, where we will send a response every time the recipient's state changes to error.
 
 The error message can be found inside the `state_reason` field on the recipient.
 
