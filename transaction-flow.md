@@ -327,9 +327,7 @@ Zenith International: 057
   "first_name": "First",
   "last_name": "Last",
   "bank_code": "030100",
-  "bank_branch_sort_code": "030100", // Optional
-  "bank_account": "123456789",
-  "bank_account_title": "First Last"
+  "bank_account": "123456789"
 }
 ```
 
