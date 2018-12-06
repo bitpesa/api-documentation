@@ -618,7 +618,7 @@ A transaction object looks like the following:
 }
 ```
 
-As shown the response contains a lot of information, the most important are the following:
+As shown, the response contains a lot of information, the most important are the following:
 
 ### id
 
@@ -694,7 +694,7 @@ Shows whether the payout to the recipient can be cancelled at this state or not.
 
 #### payout_method.fields
 
-In case there were validation errors you can find all of the fields and their valid values for the specified payout method. This can also include the available bank codes as well for bank payout providers.
+In case there were validation errors, you can find all of the fields and their valid values for the specified payout method. This can also include the available bank codes as well for bank payout providers.
 
 ## Funding transactions
 
@@ -790,8 +790,11 @@ For example, on an error you will receive a webhook like this:
 ## Cancelling recipients and transactions
 
 In case there are errors with the payout and you wish to cancel it, you can do so by calling the `DELETE /v1/recipients/ID` endpoint, where `ID` is the id of the recipient (and NOT the transaction). If the recipient can be cancelled, this request, once processed, will cancel it. If the transaction was funded from an internal balance, it will then also be refunded.
+
 Note: cancelling is only available if the `may_cancel` field is on the recipient true.
 
 > **WARNING**
 >
 > For your application to get approved it MUST support the cancellation of recipients.
+
+You can also enable the `auto_refund` trait on the transaction, this will mean your transactions will automatically be cancelled and refunded if they can't be paid out. For more information, please check the [auto cancellation](additional-features.md#auto-cancellation-and-refund-of-transactions) documentation.
