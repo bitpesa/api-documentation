@@ -409,8 +409,6 @@ The valid `bank_code` values can be found on the [GHIPSS website](https://www.gh
 }
 ```
 
-The `reference` can also be provided optionally for MAD::Cash, but if you want to use this functionality please contact us for more details.
-
 Please note when sending `MAD::Cash` payments you should subscribe to the `recipient.pending` webhook, as that will broadcast the payment reference ID the customer need to use to obtain the funds. Example webhook response excerpt:
 
 ```javascript
@@ -423,6 +421,8 @@ Please note when sending `MAD::Cash` payments you should subscribe to the `recip
    (...)
 }
 ```
+
+The `reference` can also be provided optionally for MAD::Cash, but if you want to use this functionality please contact us for more details.
 
 ##### XOF::Mobile
 
