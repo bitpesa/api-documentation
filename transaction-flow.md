@@ -331,8 +331,18 @@ Zenith International: 057
 }
 ```
 
-The valid `bank_code` values can be found on the [GHIPSS website](https://www.ghipss.net/products-services/cheque-codeline-clearing/bank-sort-codes). They should be entered as 6 digits with leading zeros where possible
-
+The current banks supported and their `bank_codes` values are:
+```
+Access Bank: 280100
+Barclays Bank: 030100
+GCB Bank: 040100
+Ecobank: 130100
+First National Bank: 330100
+Heritage Bank: 370100
+Stanbic Bank: 190100
+United Bank for Africa: 060100
+Zenith Bank: 120100
+```
 ##### GHS::Mobile
 
 ```javascript
