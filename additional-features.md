@@ -1,7 +1,8 @@
 # Additional Features
 
 - [Additional Features](#additional-features)
-  - [Bank account name validation](#bank-account-name-validation)
+  - [Bank account name enquiry](#bank-account-name-enquiry)
+  - [Name validation in transactions](#name-validation-in-transactions)
   - [Collections from senders](#collections-from-senders)
     - [NGN card collection requests through Interswitch](#ngn-card-collection-requests-through-interswitch)
     - [NGN card and mobile collection requests through Paga](#ngn-card-and-mobile-collection-requests-through-paga)
@@ -11,7 +12,7 @@
   - [Auto cancellation and refund of transactions](#auto-cancellation-and-refund-of-transactions)
   - [Editing recipients](#editing-recipients)
 
-## Bank account name validation
+## Bank account name enquiry
 
 Since it's easy to mistype the account number for a recipient, we provide a feature where you can
 request more details about an account number, before creating a transaction.
@@ -54,6 +55,62 @@ Or a `422 Unprocessably Entity` status code, with an error description in the bo
 ```
 
 Once you have the account title you can compare that with the recipient details you wish to provide us, and only create a transaction if they match.
+
+Note that an error on name enquiry might both mean that the account doesn't exist, or that there is a connectivity issue with the banking system. Because of this if you get an error message you might need to retry the call a few minutes later.
+
+## Name validation in transactions
+
+Another feature to limit mispayments because of mistyped account numbers is enabling name validation on transactions. This feature will block payouts if the account holder's name and the recipient name provided don't match. The feature is currently available for `NGN::Bank` payouts only.
+
+To enable name validation please enable the `account_validation` trait during transaction creation:
+
+```javascript
+POST /v1/transactions
+
+{
+   "transaction":{
+      "traits": {
+        "account_validation": true
+      },
+      (...) // additional transaction details
+   }
+}
+```
+
+We can also enable name validation by default across all transactions created by you. If this is of interest please contact our team so we can configure your account as such. If the feature is enabled, then it can be disabled on a per-transaction basis by specifying `"account_validation": false` in the `traits` section.
+
+Once the trait is enabled we will do a name enquiry from the bank and check if the name we get back matches the name received in the recipient details. If they match we will go ahead with the payout. If it doesn't we will stop the payout and return an error message describing that the transaction will not proceed unless the recipient details are updated to match the account holder name, or name validation is disabled on the transaction.
+
+In both cases we will return the account holder name in the recipient's metadata. For example if you entered "JOHN SMITH" as the recipient name, but the account holder is in fact "JANE DOE" then you will receive a `recipient.error` webhook with the following details:
+
+```javascript
+{
+  "webhook": "fd599451-4f3c-4045-91e1-d68ed12ffb75",
+  "event": "recipient.error",
+  "object": {
+    "editable": true,
+    "metadata": {
+      "provider_name_validation": {
+        "valid?": true,
+        "account_name": "JANE DOE"
+      }
+    },
+    "payout_method": {
+      "type": "NGN::Bank",
+      "details": {
+        "last_name": "SMITH",
+        "first_name": "JOHN",
+        (...)
+      },  
+    }
+    "state": "error",
+    "state_reason": "The recipient name doesn't match the account holder's name. Please edit or cancel the transaction",
+    (...)
+  }
+}
+```
+
+In case the account number doesn't exist at the bank or there is a connectivity issue with the banking system you will receive an error with the following message: "We could not verify that the account entered exists. This could be a temporary error with a bank, or it can mean the details entered were incorrect. We will retry the transaction". Unfortunately due to how the banking system works in the supported markets it is not always possible to differentiate an invalid account number from a connectivity issue, hence we will automatically retry the name enquiry until we get a valid response, or the transaction is cancelled.
 
 ## Collections from senders
 
