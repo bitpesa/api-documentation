@@ -432,6 +432,8 @@ Please note when sending `MAD::Cash` payments you should subscribe to the `recip
 }
 ```
 
+The `reference` can also be provided optionally for MAD::Cash, but if you want to use this functionality please contact us for more details.
+
 ##### XOF::Mobile
 
 ```javascript
