@@ -412,6 +412,14 @@ Zenith Bank: 120100
     // Mandatory; Values: "O": Other, "PP": Passport, "NI": National ID
   "sender_identity_card_id" => 'AB12345678',
     // Mandatory
+  "sender_city_of_birth" => "London",
+    // Mandatory
+  "sender_country_of_birth" => "GB",
+    // Mandatory; ISO 2-letter format
+  "sender_gender" => "M",
+    // Mandatory; Values: "M": Male, "F": Female
+  "reason" => "Remittance payment",
+    // Optional; Default value is 'Remittance payment'
   "identity_card_type" => "NI",
     // Optional; Values: "PP": Passport, "NI": National ID
   "identity_card_id" => 'AB12345678'
@@ -432,7 +440,7 @@ Please note when sending `MAD::Cash` payments you should subscribe to the `recip
 }
 ```
 
-The `reference` can also be provided optionally for MAD::Cash, but if you want to use this functionality please contact us for more details.
+The payment reference can also be provided in the recipient details hash optionally for `MAD::Cash` in which case it will be used instead of the one we generate. The field you have to provide in the hash is called `reference`. If you wish to use this functionality, please contact us for more details.
 
 ##### XOF::Mobile
 
