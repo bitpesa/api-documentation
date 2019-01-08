@@ -339,9 +339,13 @@ GCB Bank: 040100
 Ecobank: 130100
 First National Bank: 330100
 Heritage Bank: 370100
+Prudential Bank: 180100
 Stanbic Bank: 190100
+Standard Chartered Bank: 020100
 United Bank for Africa: 060100
 Zenith Bank: 120100
+
+
 ```
 ##### GHS::Mobile
 
