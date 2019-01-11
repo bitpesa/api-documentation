@@ -124,11 +124,13 @@ A full example transaction creation request with sender creation from EUR to NGN
       }
     ],
     "metadata": {
-      "local_id": "TRANSACTION-1234"
+      "sendRef": "TRANSACTION-1234"
     }
   }
 }
 ```
+
+Note that in the `metadata` section if you use `sendRef` to send us your internal reference, that value will be displayed in your transaction reports.
 
 ### Input currency
 
