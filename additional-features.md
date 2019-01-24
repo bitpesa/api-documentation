@@ -25,8 +25,8 @@ POST /v1/account_validations
 {
   "bank_account": "12345678", # account number to query
   "bank_code": "000", # bank code to query - same codes are used as for creating the transactions
-  "country": "NG"   # Only "NG" is supported for now
-  "currency": "NGN" # Only "NGN" is supported for now
+  "country": "NG"   # Only "NG" and "GH" is supported for now
+  "currency": "NGN" # Only "NGN" and "GHS" is supported for now
   "method": "bank"  # Only "bank" is supported for now
 }
 ```
@@ -60,7 +60,7 @@ Note that an error on name enquiry might both mean that the account doesn't exis
 
 ## Name validation in transactions
 
-Another feature to limit mispayments because of mistyped account numbers is enabling name validation on transactions. This feature will block payouts if the account holder's name and the recipient name provided don't match. The feature is currently available for `NGN::Bank` payouts only.
+Another feature to limit mispayments because of mistyped account numbers is enabling name validation on transactions. This feature will block payouts if the account holder's name and the recipient name provided don't match. The feature is currently available for `NGN::Bank` and `GHS::Bank` payouts only.
 
 To enable name validation please enable the `account_validation` trait during transaction creation:
 
