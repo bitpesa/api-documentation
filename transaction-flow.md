@@ -346,6 +346,7 @@ Stanbic Bank: 190100
 Standard Chartered Bank: 020100
 United Bank for Africa: 060100
 Zenith Bank: 120100
+Fidelity Bank: 240100
 ```
 ##### GHS::Mobile
 
