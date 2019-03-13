@@ -267,6 +267,30 @@ A few common examples:
 
   Although the requested currency is neither the input nor the output one, we will calculate how much `100 EUR` is in `USD` and in `NGN` and will return those values in the input and output amounts. We will afterwards do the currency exchange directly, and will not involve the requested currency at all.
 
+The requested amount is rounded to a specific number of decimal places and this depends on the currency. The decimal place information can be obtained from our currencies API endpoint - [/info/currencies/out](http://api.bitpesa.co/documentation/#/Currency%20Info/info-currencies-out).
+
+For some currencies however, we are not able to pay out subunits and they will always be rounded up.
+These currencies are KES, TZS, UGX and NGN.
+
+The current list of currencies and associated decimal places is below -
+* AED - 2
+* CAD - 2
+* CHF - 2
+* CNY - 2
+* EUR - 2
+* GHS - 2
+* GBP - 2
+* JPY - 0
+* KES - 0
+* KRW - 0
+* MAD - 2
+* NGN - 0
+* TZS - 0
+* UGX - 0
+* USD - 2
+* XOF - 0
+* ZAR - 2
+
 #### Payout details
 
 The payout details depend on the chosen payout type. You can find example calls at the [API reference documentation](https://api.bitpesa.co/documentation#transactions).
