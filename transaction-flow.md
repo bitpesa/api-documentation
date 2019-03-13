@@ -324,7 +324,6 @@ Guaranty Trust Bank : 058
 Heritage Bank: 030
 Jaiz Bank: 301
 Keystone: 082
-Mainstreet: 014
 Polaris Bank: 076
 Stanbic IBTC Bank: 039
 Sterling bank: 232
