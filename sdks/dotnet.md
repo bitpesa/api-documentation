@@ -1,5 +1,6 @@
 # .NET SDK
 
+- NuGet Package: https://www.nuget.org/packages/BitPesa.Sdk/
 - Git Repository: https://github.com/bitpesa/bitpesa-sdk-dotnet
 
 ## Example
