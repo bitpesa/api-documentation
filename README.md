@@ -2,6 +2,7 @@
 
 - [Introduction](#introduction)
 - [API onboarding process](#api-onboarding-process)
+- [Software Development Kits](#software-development-kits)
 - [BitPesa API architecture](#bitpesa-api-architecture)
   - [Authentication](#authentication)
   - [Status codes](#status-codes)
@@ -37,6 +38,17 @@ Once development is finished against our API, please contact BitPesa where our r
 > * Handling and cancelling failed transactions
 
 You can also check our [quick integration guide](quick-integration.md) that contains the major points in making sure your implementation will be approved. You can also check our [additional features guide](additional-features.md) for some of the other features we support and you might want to use, and also the [reference documentation](https://api.bitpesa.co/documentation) which contains a reference of all of the available API endpoints we have.
+
+## Software Development Kits
+
+To facilitate easier integration with our API, we have SDKs available for the following languages:
+
+- [Java 7](sdks/java7.md)
+- [Java 8](sdks/java8.md)
+- [Ruby](sdks/ruby.md)
+- [Javascript](sdks/javascript.md)
+- [PHP](sdks/php.md)
+- [.NET](sdks/dotnet.md)
 
 ## BitPesa API architecture
 

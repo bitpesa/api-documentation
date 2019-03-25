@@ -1,6 +1,7 @@
 # Quick integration guide
 
 - [Quick integration guide](#quick-integration-guide)
+  - [Software Development Kits](#software-development-kits)
   - [Authentication](#authentication)
   - [Creating transactions](#creating-transactions)
   - [Funding transactions](#funding-transactions)
@@ -18,6 +19,17 @@ Once you finish with the integration we will have a call to check that your impl
 * Create and fund transactions
 * Check the status of transactions both via webhooks and manually
 * Handling and cancelling failed transactions
+
+## Software Development Kits
+
+To facilitate easier integration with our API, we have SDKs available for the following languages:
+
+- [Java 7](sdks/java7.md)
+- [Java 8](sdks/java8.md)
+- [Ruby](sdks/ruby.md)
+- [Javascript](sdks/javascript.md)
+- [PHP](sdks/php.md)
+- [.NET](sdks/dotnet.md)
 
 Please read our [README](README.md) and the [Transaction Flow Guide](transaction-flow.md) before going through the implementation, but to make the process of creating a minimum approved integration easier, we propose you follow the following steps in this order:
 
@@ -40,7 +52,7 @@ Once a transaction is funded you can use our webhook facilities to listen in cha
 
 ## Handling errors
 
-You need to be sure that you can handle transactions where the payout has failed. For a generic guide please see [how you receiving error messages](transaction-flow.md#receiving-error-messages) and how you can [cancel recipients and transactions](transaction-flow.md#cancelling-recipients-and-transactions). Note that by default we will never cancel funded transactions without your request but [you can enable this feature if you'd like](additional-features.md#auto-cancellation-and-refund-of-transactions).
+You need to be sure that you can handle transactions where the payout has failed. For a generic guide please see [how you receive error messages](transaction-flow.md#receiving-error-messages) and [how you can cancel recipients and transactions](transaction-flow.md#cancelling-recipients-and-transactions). Note that by default we will never cancel funded transactions without your request but [you can enable this feature if you'd like](additional-features.md#auto-cancellation-and-refund-of-transactions).
 
 Since there can be a wide range of different errors, as a starting implementation we usually propose the following logic:
 
