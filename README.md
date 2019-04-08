@@ -8,6 +8,7 @@
   - [Status codes](#status-codes)
   - [Webhooks](#webhooks)
   - [Metadata](#metadata)
+  - [External ID](#external-id)
   - [Senders](#senders)
   - [Recipients](#recipients)
   - [Transactions](#transactions)
@@ -105,7 +106,6 @@ The following are examples of some possible webhook flows and events. Please not
 
 ![transaction-success](uml/webhook-success.png)
 
-
 #### Transaction canceled
 
 ![transaction-canceled](uml/webhook-canceled.png)
@@ -118,13 +118,19 @@ You can obtain an up-to-date list of available webhook events using the [Webhook
 
 ### Metadata
 
-Most models in the BitPesa API allow storing any metadata, which will be returned when querying the object, including callouts from webhooks. This facility can be used to store any data on the models, including for example local IDs to help link them to the models inside the API user's system.
+Most models in the BitPesa API allow storing any metadata, which will be returned when querying the object, including callouts from webhooks. This facility can be used to store any data on the models.
+
+### External ID
+
+An external ID can be included when Transactions are created, which are typically used for linking transactions to the models inside the API user's system. If the specified external ID already exists in our system the transaction will fail to validate.
 
 ### Senders
 
 The senders model stores information about who sends the money for the transaction. Only senders that are KYC'd are allowed to pay in money.
 
-If your site already does KYC on the senders, then  let us know as we might waive the requirement to send us sender documents to ease the usage of our API. Otherwise you will have to send us documents for each sender which we will validate.
+If your site already does KYC on the senders, then let us know as we might waive the requirement to send us sender documents to ease the usage of our API. Otherwise you will have to send us documents for each sender which we will validate.
+
+As with transactions, external IDs can also be included for senders when a transaction is created. If this ID already exists in our system, the transaction will fail to validate.
 
 You can read more on creating senders in the [Transaction flow documentation](transaction-flow.md).
 
