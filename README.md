@@ -48,7 +48,9 @@ To facilitate easier integration with our API, we have SDKs available for the fo
 - [Ruby](sdks/ruby.md)
 - [Javascript](sdks/javascript.md)
 - [PHP](sdks/php.md)
-- [.NET](sdks/dotnet.md)
+- [.NET (C# / VB.NET)](sdks/dotnet.md)
+
+We encourage all users to make use of these SDKs as it will greatly ease the process of developing a successful integration with our API.
 
 ## BitPesa API architecture
 
@@ -65,7 +67,7 @@ Generally in our API there are two types of status codes used:
 
 ### Webhooks
 
-Whenever objects in the BitPesa API change state, we can optionally send the changed details to a pre-registered webhook address. Webhooks can be created either using the [developer portal](https://developers.bitpesa.co), or using the [BitPesa API](https://api.bitpesa.co/documentation#webhooks).
+A *webhook* is a callback which enables our API to notify your system of new events concerning your transactions. Whenever objects in the BitPesa API change state, we can optionally send the changed details to a pre-registered webhook address. Webhooks can be created either using the [developer portal](https://developers.bitpesa.co), or using the [BitPesa API](https://api.bitpesa.co/documentation#webhooks).
 
 Whenever possible we prefer using webhooks to listen on events (for example when a transaction has been paid out) instead of polling the status, and we expect implementations fully utilising webhooks.
 
@@ -88,6 +90,15 @@ The structure of the body we send will always follow the following template:
 
 If the endpoint we have to call is behind a firewall please let us know so we can tell you the exact IP addresses that you need to whitelist. In case of a transmission error we will also try to send the webhook again five times before dropping the request.
 
+There are examples showing how to parse a received webhook message using our SDKs:
+
+- [Java 7 webhook example](https://github.com/bitpesa/bitpesa-sdk-java7/blob/master/example/src/main/java/co/bitpesa/test/Application.java#L125)
+- [Java 8 webhook example](https://github.com/bitpesa/bitpesa-sdk-java8/blob/master/example/src/main/java/co/bitpesa/test/Application.java#L125)
+- [Ruby webhook example](https://github.com/bitpesa/bitpesa-sdk-ruby/blob/master/example/client.rb#L180)
+- [Javascript webhook example](https://github.com/bitpesa/bitpesa-sdk-javascript/blob/master/examples/examples.js#L186)
+- [PHP webhook example](https://github.com/bitpesa/bitpesa-sdk-php/blob/master/examples/client.php#L219)
+- [.NET (C# / VB.NET) webhook example](https://github.com/bitpesa/bitpesa-sdk-javascript/blob/master/examples/examples.js#L186)
+
 The following are examples of some possible webhook flows and events. Please note this is not an exhaustive list however covers the majority of cases:
 
 #### Transaction success
@@ -102,6 +113,8 @@ The following are examples of some possible webhook flows and events. Please not
 #### Transaction refunded
 
 ![transaction-refund-simple](uml/webhook-refund-simple.png)
+
+You can obtain an up-to-date list of available webhook events using the [Webhook Events endpoint](https://api.bitpesa.co/documentation/#/Webhooks/get-webhook-events) of our API.
 
 ### Metadata
 

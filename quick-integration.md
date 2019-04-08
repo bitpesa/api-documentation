@@ -29,9 +29,9 @@ To facilitate easier integration with our API, we have SDKs available for the fo
 - [Ruby](sdks/ruby.md)
 - [Javascript](sdks/javascript.md)
 - [PHP](sdks/php.md)
-- [.NET](sdks/dotnet.md)
+- [.NET (C# / VB.NET)](sdks/dotnet.md)
 
-Please read our [README](README.md) and the [Transaction Flow Guide](transaction-flow.md) before going through the implementation, but to make the process of creating a minimum approved integration easier, we propose you follow the following steps in this order:
+Please read our [README](README.md) and the [Transaction Flow Guide](transaction-flow.md) before going through the implementation, but to make the process of creating a minimum approved integration easier, we encourage you to make use of our SDKs and implement the required steps in this order:
 
 ## Authentication
 
