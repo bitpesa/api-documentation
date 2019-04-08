@@ -1,5 +1,9 @@
 # Authentication
 
+> **NOTE**
+>
+> Instead of implementing authentication on your own please [try using our SDKs](README.md#software-development-kits) available in multiple frameworks and languages which support our authentication mechanism out of the box
+
 Authentication with the BitPesa API relies on correctly setting the headers on each request with the following data:
 
 * **Accept** and **Content-Type** should be "application/json"
