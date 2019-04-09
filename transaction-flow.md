@@ -20,6 +20,7 @@
         - [MAD::Cash](#madcash)
         - [XOF::Mobile](#xofmobile)
     - [Metadata](#metadata)
+    - [External ID](#external-id)
   - [Transaction object](#transaction-object)
     - [id](#id)
     - [state](#state)
@@ -80,9 +81,12 @@ Transactions can be created by calling the `POST /v1/transactions` endpoint. The
          }
       ],
       "metadata": // optional metadata
+      "external_id": // optional parameter for adding a custom ID to transactions
    }
 }
 ```
+
+Note that the `external_id` field is optional. Please see [external ID](#external-id) for further information.
 
 A full example transaction creation request with sender creation from EUR to NGN would look like the following:
 
@@ -103,6 +107,7 @@ A full example transaction creation request with sender creation from EUR to NGN
       "birth_date": "1970-01-01",
       "documents": [ ],
       "ip": "127.0.0.1",
+      "external_id": "76f69f5e-912f-43e5-bf3a-9081dbc476f4",
       "metadata": {
         "local_id": "SENDER-1234"
       }
@@ -123,14 +128,11 @@ A full example transaction creation request with sender creation from EUR to NGN
         }
       }
     ],
-    "metadata": {
-      "sendRef": "TRANSACTION-1234"
-    }
+    "metadata": {},
+    "external_id": "806ec63a-a5a7-43cc-9d75-1ee74fbcc026"
   }
 }
 ```
-
-Note that in the `metadata` section if you use `sendRef` to send us your internal reference, that value will be displayed in your transaction reports.
 
 ### Input currency
 
@@ -154,11 +156,12 @@ This section contains the details of the sender. The first time a specific sende
   "birth_date": "1970-01-01",
   "documents": [ ],
   "ip": "127.0.0.1",
+  "external_id": "76f69f5e-912f-43e5-bf3a-9081dbc476f4",
   "metadata": {}
 }
 ```
 
-When a sender is created you will receive a response which contains the senders status. Possible states for a sender are:
+When a sender is created you will receive a response which contains the sender's status. Possible states for a sender are:
 
 * initial - When a sender is created and has not been through any KYC checking (cannot transact)
 * verified - A sender has passed sanction list checks (cannot transact)
@@ -175,14 +178,24 @@ In case the KYC requirements are not waived then the typical flow for approval t
 
 In case the KYC requirements are waived then all created senders will be in the `approved` state immediately, and can be immediately used for transactions.
 
-Notes:
+**ID and External ID:**
+
+The `external_id` field is optional, allowing you to add a custom ID for the sender as with the external ID [available for transactions](#external-id). The ID/External ID can be included with the sender in three ways:
+
+* Only an `id` is provided - we will search for the corresponding sender and use this reference.
+* Only an `external_id` is provided - we will search for the corresponding sender and use this reference.
+* An `external_id` is provided along with additional fields - we will create a new sender with this reference. This process is subject to duplicate validation, and an error will be returned with the corresponding sender if a duplicate `external_id` is found to already exist on our system.
+
+If a sender has been assigned an `external_id`, this value can be used to find senders using the `GET v1/senders` endpoint, with `external_id` parameter included as a string. For example: `GET v1/senders?external_id=76f69f5e`
+
+**Notes:**
 
 * The sender's phone number is composed of two parts, the `phone_country` (in ISO 2-letter format), and the `phone_number`. The phone number should be specified without the international prefix.
 * The `documents` should contain all documents necessary to KYC the sender.
   * If you already do KYC on your system, then please contact us and we can waive this requirement from you. In this case you should send us an empty list of documents: `"documents": [ ]` in the request. All of the senders you create in the system will be immediately set to the `approved` state and you won't need to wait for them to get approved.
   * If when creating senders or transactions you get the following error in the response: `"errors":{"documents":[{"error":"blank"}]}` it means that KYC requirements are not yet waived for your account. If we already approved your KYC process and so they should be, then please contact us so we can rectify the issue and update your account accordingly.
   * In case you don't do KYC on your site, then you will need to send us documents that we can use to verify the sender's identity, for more details on this please see the [API reference documentation](https://api.bitpesa.co/documentation#documents).
-* The `metadata` field can store any information you wish to store with the sender. Usual data would include the ID inside your own system for this particular sender. If you don't wish to store anything simply specify `{}`.
+* The `metadata` field can store any information you wish to store with the sender. If you don't wish to store anything simply specify `{}`.
 
 Once a sender is created and is used, the next time you MUST only send the ID of the sender. This is so we can match the same sender across multiple transactions for KYC and audit purposes. In this case the sender inside the transaction creation call would look like the following:
 
@@ -490,7 +503,15 @@ tigo
 
 ### Metadata
 
-Similarly to the sender, you can store any kind of information to the transaction, usually the local ID for the transaction within your system. If you don't wish to store anything leave the field empty: `{}`
+Similarly to the sender, you can store any kind of information to the transaction. If you don't wish to store anything leave the field empty: `{}`
+
+### External ID
+
+External ID is an optional field that allows you to add a custom ID for the transaction, should you wish to link it to a transaction within your own local system. This internal reference value will be displayed in your transaction reports.
+
+If an `external_id` is present when transactions are created, we will validate whether it is a duplicate in our system or not. This functionality provides a safeguard against transactions being assigned the same `external_id`. If a duplicate is found, an error will be returned along with the corresponding transaction.
+
+Once an `external_id` has been set, it can be used to find transactions using the `GET v1/transactions` endpoint, with `external_id` parameter included as a string. For example: `GET v1/transactions?external_id=806ec63a`
 
 ## Transaction object
 
@@ -522,6 +543,7 @@ A transaction object looks like the following:
       "phone_number": "752403639",
       "email": "example@home.org",
       "ip": "127.0.0.1",
+      "external_id": "76f69f5e-912f-43e5-bf3a-9081dbc476f4",
       "first_name": "Peter",
       "last_name": "Smith",
       "birth_date": "1987-08-08",
@@ -661,7 +683,8 @@ A transaction object looks like the following:
       }
     ],
     "created_at": "2017-08-08 13:19:32 UTC",
-    "expires_at": "2017-08-08T14:19:32.855Z"
+    "expires_at": "2017-08-08T14:19:32.855Z",
+    "external_id": "806ec63a-a5a7-43cc-9d75-1ee74fbcc026"
   }
 }
 ```
@@ -697,7 +720,7 @@ This is the amount that has to be collected from the sender, or funded from the 
 
 ### sender
 
-The full details of the sender. If this is a new sender, please note of the `id` field, as that MUST be used in subsequent transaction creation calls that are from the same sender
+The full details of the sender. If this is a new sender, please make a note of the `id` field, as that MUST be used in subsequent transaction creation calls that are from the same sender. If an `external_id` is present on the sender, this will also be included. Please see [Sender](#sender) for more details on how `external_id` functions.
 
 ### recipients
 
@@ -744,6 +767,10 @@ Shows whether the payout to the recipient can be cancelled at this state or not.
 
 In case there were validation errors, you can find all of the fields and their valid values for the specified payout method. This can also include the available bank codes as well for bank payout providers.
 
+#### external_id
+
+The external ID of a transaction, if present.
+
 ## Funding transactions
 
 By default, when creating a transaction we will collect the money from the sender. For more information on how to handle some collections, please visit [Collections](additional-features.md#collections-from-senders). You can also check the [API reference documentation](https://api.bitpesa.co/documentation#fetching-possible-payin-methods
@@ -775,7 +802,7 @@ Once the transaction is funded, we will immediately start trying to pay out the 
 
 ## Checking the state of the transaction
 
-To manually check the state of the transaction, use the `GET /v1/transactions/ID` endpoint, where the `ID` is the id of the transaction.
+To manually check the state of the transaction, use the `GET /v1/transactions/ID` endpoint, where the `ID` is the id of the transaction. Transactions can also be retrieved using the `external_id`, [as documented here](#external-id).
 
 However to get real-time information on when a transaction's state changes please create webhooks for transaction state changes using the developer portal, or the API, where we will send a response every time the transaction's state is changed.
 
@@ -826,7 +853,8 @@ For example, on an error you will receive a webhook like this:
     "input_amount": 10874.0,
     "input_currency": "NGN",
     "output_amount": 10874.0,
-    "output_currency": "NGN"
+    "output_currency": "NGN",
+    "external_id": "806ec63a-a5a7-43cc-9d75-1ee74fbcc026"
   }
 }
 ```

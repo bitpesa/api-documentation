@@ -47,6 +47,7 @@ For the following example, we will assume you are using the following details to
       }
     ],
     "ip": "127.0.0.1",
+    "external_id": "76f69f5e-912f-43e5-bf3a-9081dbc476f4",
     "metadata": { "meta": "data" }
   }
 }
