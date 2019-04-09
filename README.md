@@ -122,7 +122,9 @@ Most models in the BitPesa API allow storing any metadata, which will be returne
 
 ### External ID
 
-An external ID can be included when Transactions are created, which are typically used for linking transactions to the models inside the API user's system. If the specified external ID already exists in our system the transaction will fail to validate.
+An external ID can be included when Transactions are created, which are typically used for linking transactions to the models inside the API user's system. If the specified external ID already exists in our system the transaction will fail to validate, and the corresponding duplicate transaction will be returned along with an error.
+
+For more information on External IDs, see the [Transaction flow documentation](transaction-flow.md#external-id)
 
 ### Senders
 

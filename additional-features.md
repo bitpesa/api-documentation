@@ -157,7 +157,8 @@ The generic structure of a transaction that collects the equivalent of 100 USD f
       }
     }
   ],
-  "metadata": {}
+  "metadata": {},
+  "external_id": "806ec63a-a5a7-43cc-9d75-1ee74fbcc026"
 }
 ```
 
