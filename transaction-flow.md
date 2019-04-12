@@ -180,11 +180,14 @@ In case the KYC requirements are waived then all created senders will be in the 
 
 **ID and External ID:**
 
-The `external_id` field is optional, allowing you to add a custom ID for the sender as with the external ID [available for transactions](#external-id). The ID/External ID can be included with the sender in three ways:
+The `external_id` field is optional, allowing you to add a custom ID for the sender as with the external ID [available for transactions](#external-id). The ID/External ID can be included with the sender in four ways:
 
 * Only an `id` is provided - we will search for the corresponding sender and use this reference.
+* An `id` is provided along with additional fields - we will update the corresponding sender with the information contained as parameters if the id exists on our system. Otherwise an error will be returned if the `id` does not exist.
 * Only an `external_id` is provided - we will search for the corresponding sender and use this reference.
 * An `external_id` is provided along with additional fields - we will create a new sender with this reference. This process is subject to duplicate validation, and an error will be returned with the corresponding sender if a duplicate `external_id` is found to already exist on our system.
+
+Please note that sending both an `id` and `external_id` at once is invalid and will result in an error.
 
 If a sender has been assigned an `external_id`, this value can be used to find senders using the `GET v1/senders` endpoint, with `external_id` parameter included as a string. For example: `GET v1/senders?external_id=76f69f5e`
 
